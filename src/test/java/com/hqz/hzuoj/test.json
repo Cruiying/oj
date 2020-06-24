@@ -1,0 +1,16 @@
+{
+  "code": 200,
+  "message": "获取成功",
+  "data": {
+    "discussionId": 2,
+    "content": "内容",
+    "createTime": 1592888608000,
+    "userId": 1,
+    "modifyTime": 1592888608000,
+    "title": "标题",
+    "top": false,
+    "commentCount": 0,
+    "commendCount": 0,
+    "browseCount": 0
+  }
+}

@@ -98,14 +98,16 @@
                     data: JSON.stringify(list),
                     //请求成功
                     success: function (result) {
+                        alert(JSON.stringify(result))
                         if (result["code"] === 200) {
                             let url = $("#ReturnUrl").val();
                             if (url == null || url == "") {
-                                url = "/user/index";
+                                url = "/index";
                             }
-                            window.location.href = url + "?userToken=" + result["data"];
+                            window.location.href = url + "?token=" + result["data"];
                             layer.msg("登陆成功");
                         } else {
+
                             layer.msg(result['message']);
                         }
                     },

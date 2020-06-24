@@ -3,6 +3,7 @@ package com.hqz.hzuoj.common.base;
 
 import com.hqz.hzuoj.common.exception.MyException;
 import com.hqz.hzuoj.common.exception.enums.ErrorEnum;
+import com.hqz.hzuoj.common.util.SessionUtils;
 import com.hqz.hzuoj.entity.User;
 import org.apache.shiro.SecurityUtils;
 
@@ -17,7 +18,7 @@ import org.apache.shiro.SecurityUtils;
 public class CurrentUser {
 
     public static User getUser(){
-        return (User) SecurityUtils.getSubject().getPrincipal();
+        return SessionUtils.get("user");
     }
 
     public static Integer getUserId(){

@@ -8,14 +8,15 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.apache.shiro.mgt.SecurityManager;
+
 import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 
 
 /**
@@ -29,59 +30,67 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    @Bean("sessionManager")
-    public SessionManager sessionManager(){
-        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        // 是否定时检查session
-        sessionManager.setSessionValidationSchedulerEnabled(false);
-        return sessionManager;
+    //将自己的验证方式加入容器
+    @Bean
+    public ShiroRealm shiroRealm() {
+        return new ShiroRealm();
     }
 
-    @Bean("securityManager")
-    public DefaultWebSecurityManager securityManager(OAuth2Realm oAuth2Realm, SessionManager sessionManager){
-        DefaultWebSecurityManager securityManager=new DefaultWebSecurityManager();
-        securityManager.setRealm(oAuth2Realm);
-        securityManager.setSessionManager(sessionManager);
+    //权限管理，配置主要是Realm的管理认证
+    @Bean
+    public DefaultWebSecurityManager securityManager(@Qualifier("shiroRealm") ShiroRealm shiroRealm) {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        securityManager.setRealm(shiroRealm);
+        /*securityManager.setCacheManager(redisCacheManager());
+        securityManager.setSessionManager(defaultWebSessionManager());*/
+        //securityManager.setSessionManager(defaultWebSessionManager());
         return securityManager;
     }
 
-    @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
-        ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
-        shiroFilter.setSecurityManager(securityManager);
-
-        //oauth过滤
-        Map<String, Filter> filters = new HashMap<>();
-        filters.put("oauth2", new OAuth2Filter());
-        shiroFilter.setFilters(filters);
-
-        Map<String, String> filterMap = new LinkedHashMap<>();
-        // 两个url规则都可以匹配同一个url，只执行第一个
-        filterMap.put("/admin/sys/login", "anon");
-        filterMap.put("/admin/**", "oauth2");
-        filterMap.put("/**", "anon");
-        shiroFilter.setFilterChainDefinitionMap(filterMap);
-
-        return shiroFilter;
-    }
-
-    @Bean("lifecycleBeanPostProcessor")
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-        return new LifecycleBeanPostProcessor();
-    }
-
+    //Filter工厂，设置对应的过滤条件和跳转条件
     @Bean
-    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
-        DefaultAdvisorAutoProxyCreator proxyCreator = new DefaultAdvisorAutoProxyCreator();
-        proxyCreator.setProxyTargetClass(true);
-        return proxyCreator;
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager securityManager) {
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        shiroFilterFactoryBean.setSecurityManager(securityManager);
+        Map<String, String> map = new HashMap<String, String>();
+        //登出
+        /*
+         * anon  无需认证
+         * authc  必须认证
+         * user  使用rememberme功能可以直接访问
+         * perms 资源授权
+         * role 校色授权
+         * */
+        // map.put("/h5pasm/**","anon");
+        map.put("/logout", "logout");
+        map.put("/user/login", "anon");//对所有用户不认证
+        map.put("/regist", "anon");//对所有用户不认证
+        map.put("/captcha.jpg", "anon");//对所有用户不认证
+        map.put("/user/sys/login", "anon");//对所有用户不认证
+        map.put("/**", "authc");
+        //登录
+        shiroFilterFactoryBean.setLoginUrl("/user/login");
+        //首页
+        shiroFilterFactoryBean.setSuccessUrl("/index");
+        //错误页面，认证不通过跳转
+        shiroFilterFactoryBean.setUnauthorizedUrl("/unAuth");
+        //shiroFilterFactoryBean.setUnauthorizedUrl("/error");
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
+        return shiroFilterFactoryBean;
     }
 
+
+    /**
+     * 开启aop注解支持
+     *
+     * @param securityManager
+     * @return
+     */
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
-        advisor.setSecurityManager(securityManager);
-        return advisor;
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+        return authorizationAttributeSourceAdvisor;
     }
 
 }

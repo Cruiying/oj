@@ -4,6 +4,7 @@ package com.hqz.hzuoj.controller;
 import com.hqz.hzuoj.common.R;
 import com.hqz.hzuoj.common.base.CurrentUser;
 import com.hqz.hzuoj.common.exception.enums.ErrorEnum;
+import com.hqz.hzuoj.common.util.SessionUtils;
 import com.hqz.hzuoj.entity.User;
 import com.hqz.hzuoj.service.SysCaptchaService;
 import com.hqz.hzuoj.service.SysUserTokenService;
@@ -86,14 +87,15 @@ public class SysLoginController extends CurrentUser {
             subject.login(token);
             //没有异常表示验证成功
             User user = userService.queryByUsername(loginUser.getUsername());
+            SessionUtils.set("user",user);
             //生成token，并保存到redis
             return sysUserTokenService.createToken(user.getUserId());
+
         } catch (IncorrectCredentialsException ice) {
             return R.error("用户名或密码不正确！");
         } catch (UnknownAccountException uae) {
             return R.error("未知账户！");
         } catch (LockedAccountException lae) {
-
             return R.error("账户已锁定！");
         } catch (ExcessiveAttemptsException eae) {
 

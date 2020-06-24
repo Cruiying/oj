@@ -60,7 +60,7 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
         redisUtil.set(tokenKey, userId, EXPIRE);
         redisUtil.set(userIdKey, token, EXPIRE);
 
-        return R.ok(token);
+        return R.ok("token", token);
     }
 
     /**
