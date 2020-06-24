@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>讨论</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/highlight.js/9.1.0/styles/tomorrow.min.css">
+    <link rel="stylesheet" href="../static/lib/jq-module/zyupload/zyupload-1.0.0.min.css"
+          th:href="@{/lib/jq-module/zyupload/zyupload-1.0.0.min.css}" media="all">
+    <link href="https://cdn.bootcss.com/prism/1.15.0/themes/prism.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/prism/1.15.0/plugins/line-numbers/prism-line-numbers.css" rel="stylesheet">
+    <script src="../static/lib/vue/vue.js" th:src="@{/lib/vue/vue.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css" th:href="@{/css/main.css}">
+    <script src="../static/js/JudgeResult.js" th:src="@{/js/JudgeResult.js}"></script>
+    <style>
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+        .modify:hover {
+            color: #009c95;
+        }
+
+        body {
+            background-color: rgb(239, 239, 239);
+        }
+    </style>
+
+</head>
+<body  class="modal-page dimmable">
+<!--<nav th:replace="fragment::menu('discussions')"></nav>-->
+<div style="height: 15px;"></div>
+<div class="ui container" id="app" style="min-height: 380px;">
+    <div style="display: block;height: 80px;" :style="'display: none'" class="ui active centered inline loader"></div>
+    <div style="display: none;" :style="'display: block'">
+        <div style="margin-bottom: 15px">
+            <a href="">全部讨论</a>
+            <span> > </span>
+            <span v-if="discussion != null" v-text="discussion.title"></span>
+        </div>
+        <div class="ui grid stackable" v-if="discussion != null">
+            <div class="eleven wide column">
+                <div class="ui segment grid">
+                    <div class="sixteen wide column">
+                        <div class="ui header">
+                            <h1 style="margin: 15px;" v-text="discussion.title"></h1>
+                            <a :href="'/user/'+discussion.userId" class="head-pic" style="margin-bottom: 10px; ">
+                                <img alt="头像" class="head-pic"
+                                     :src="discussion.img != null && discussion.img.length>0 ? discussion.img: '/images/default.png'">
+                            </a>
+                        </div>
+                        <div style="padding-top: 8px;" class="ui middle aligned two column grid">
+                            <div class="left aligned column">
+                                <div style="color: rgba(33,33,33,0.5);">
+                                    <a :href="'/user/'+discussion.userId" style="margin-right: 10px;"
+                                       v-html="getUserRatingColor(discussion.username,discussion.rating)"></a>
+                                    <div style="margin-top: 5px;">
+                                        <span v-text="'发表于 '+dateFormat(discussion.createTime)"></span>
+                                        <span v-if="user != null && discussion.userId === user.userId">
+                                            <a class="modify" style="color: rgba(0,0,0,.4); cursor: pointer;"
+                                               :href="'/discussion/editor?discussionId=' + discussion.discussionId"
+                                               v-text="'修改'"></a>
+                                            <a class="delete" style="color: rgba(0,0,0,.4); cursor: pointer;"
+                                               v-on:click="deleteDiscussion(discussion.discussionId)"
+                                               v-text="'删除'"></a>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="right aligned column">
+                                <div style="color: rgba(33,33,33,0.5)">
+                                    <span v-text="'回复'+ discussion.commentCount +  ' | '"></span><span
+                                        v-text="'赞' + discussion.commendCount + ' | '"></span><span
+                                        v-text="'浏览' + discussion.browseCount"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="sixteen wide column">
+                        <div class="ui" v-html="discussion.content">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui segment grid" style="display: none" id="reply">
+                    <div class="sixteen wide column">
+                        <div class="ui middle aligned two column grid">
+                            <div class="column">
+                                <h1 style="font-size: 16px;font-weight: 700;" v-text="comments.length+'条回帖'">8</h1>
+                            </div>
+                            <div class="right aligned column">
+                                <a href="#reply" class="ui teal button"><i class="paint brush icon"></i>回帖</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sixteen wide column">
+                        <div id="comment-container" class="ui teal segment" v-if="comments != null">
+                            <div class="ui threaded comments" style="max-width: 100%; padding: 0">
+                                <div class="comment" v-for="comment,i in comments">
+                                    <a class="avatar">
+                                        <img src="../static/images/default.png"
+                                             :src="comment.user.userImg != null && comment.user.userImg.length>0 ? comment.user.userImg: '/images/default.png'">
+                                    </a>
+                                    <div class="content" style="padding-top: 0!important;">
+                                        <a class="author">
+                                            <a :href="'/user/'+comment.user.userId"
+                                               v-html="getUserRatingColor(comment.user.username,comment.user.userRating)"></a>
+                                            <div class="ui mini basic teal left pointing label m-padded-mini"
+                                                 v-text="(i+1)+'楼'"></div>
+                                            <div v-if="comment.user.userId==discussion.user.userId"
+                                                 class="ui mini basic teal left pointing label m-padded-mini"
+                                                 v-text="'楼主'"></div>
+                                        </a>
+                                        <div class="metadata">
+                                            <span class="date" v-text="dateFormat(comment.commentTime)"></span>
+                                            <a v-if="comment.user.userId == loginUserId"
+                                               style="color: rgba(0,0,0,.4); cursor: pointer;"
+                                               v-on:click="deleteComment(comment.commentId)">删除</a>
+                                        </div>
+                                        <div class="text">
+                                            <span v-text="comment.commentContent"></span>
+                                            <span class="actions">
+                                            <div class="ui accordion field">
+                                                <a class="title">回复</a>
+                                                <div class="content field">
+                                                    <div class="ui form">
+                                                        <div class="field">
+                                                            <input type="text" placeholder="评论内容">
+                                                        </div>
+                                                        <div class="field" style="text-align: right">
+                                                            <button v-on:click="onReply(i, i, 0, comment.commentId, $event)"
+                                                                    style="background: #22ae90; color: white;"
+                                                                    class="ui button">回复
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 2px" class="comments" v-for="reply,j in comment.comments">
+                                        <div class="comment">
+                                            <a class="avatar">
+                                                <img src="../static/images/default.png"
+                                                     :src="reply.user.userImg != null && reply.user.userImg.length>0 ? reply.user.userImg: '/images/default.png'">
+                                            </a>
+                                            <div class="content" style="padding-top: 0!important;">
+                                                <div class="author">
+                                                    <a :href="'/user/'+reply.user.userId"
+                                                       v-html="getUserRatingColor(reply.user.username,reply.user.userRating)"></a>
+                                                    <div v-if="reply.user.userId==discussion.user.userId"
+                                                         class="ui mini basic teal left pointing label m-padded-mini"
+                                                         v-text="'楼主'"></div>
+                                                    <span style=" color: #009c95;font-weight: 400"> 回复 </span><a
+                                                        :href="'/user/'+reply.parentComment.user.userId"
+                                                        class="m-teal"
+                                                        v-html="getUserRatingColor(reply.parentComment.user.username,reply.parentComment.user.userRating)"> </a>
+                                                </div>
+                                                <div class="metadata">
+                                                    <span class="date" v-text="dateFormat(reply.commentTime)"></span>
+                                                    <a v-if="reply.user.userId == loginUserId"
+                                                       style="color: rgba(0,0,0,.4); cursor: pointer;"
+                                                       v-on:click="deleteComment(reply.commentId)">删除</a>
+                                                </div>
+                                                <div class="text">
+                                                    <span v-text="reply.commentContent"></span>
+                                                    <span class="actions">
+                                                    <div class="ui accordion field">
+                                                        <a class="title">回复</a>
+                                                        <div class="content field">
+                                                            <div class="ui form">
+                                                                <div class="field">
+                                                                    <input type="text" placeholder="评论内容">
+                                                                </div>
+                                                                <div class="field" style="text-align: right">
+                                                                    <button v-on:click="onReply(i,j, 3, reply.commentId,$event)"
+                                                                            style="background: #22ae90; color: white;"
+                                                                            class="ui button">回复</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                                </div>
+                                            </div>
+                                            <div style="padding: 2px" class="comments" v-for="r,k in reply.comments">
+                                                <div class="comment">
+                                                    <a class="avatar">
+                                                        <img src="../static/images/default.png"
+                                                             :src="r.user.userImg != null && r .user.userImg.length>0 ? r.user.userImg: '/images/default.png'">
+                                                    </a>
+                                                    <div class="content" style="padding-top: 0!important;">
+                                                        <div class="author">
+                                                            <a :href="'/user/'+r.user.userId"
+                                                               v-html="getUserRatingColor(r.user.username,r.user.userRating)"></a>
+                                                            <div v-if="r.user.userId==discussion.user.userId"
+                                                                 class="ui mini basic teal left pointing label m-padded-mini"
+                                                                 v-text="'楼主'"></div>
+                                                            <span style=" color: #009c95;font-weight: 400"> 回复 </span><a
+                                                                :href="'/user/'+r.parentComment.user.userId"
+                                                                class="m-teal"
+                                                                v-html="getUserRatingColor(r.parentComment.user.username,r.parentComment.user.userRating)"> </a>
+                                                        </div>
+                                                        <div class="metadata">
+                                                            <span class="date"
+                                                                  v-text="dateFormat(r.commentTime)"></span>
+                                                            <a v-if="r.user.userId == loginUserId"
+                                                               style="color: rgba(0,0,0,.4); cursor: pointer;"
+                                                               v-on:click="deleteComment(r.commentId)">删除</a>
+                                                        </div>
+                                                        <div class="text">
+                                                            <span v-text="r.commentContent"></span>
+                                                            <span class="actions">
+                                                                <div class="ui accordion field">
+                                                                    <a class="title">回复</a>
+                                                                    <div class="content field">
+                                                                        <div class="ui form">
+                                                                            <div class="field">
+                                                                                <input type="text" placeholder="评论内容">
+                                                                            </div>
+                                                                            <div class="field"
+                                                                                 style="text-align: right">
+                                                                                <button v-on:click="onReply(i,j,3,r.commentId,$event)"
+                                                                                        style="background: #22ae90; color: white;"
+                                                                                        class="ui button">回复</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui segment grid">
+                    <div class="sixteen wide column">
+                        <div class="ui form">
+                            <div class="field">
+                                <div id="replyVale">
+                                    <textarea id="commentContent" class="typo  typo-selection js-toc-content"></textarea>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui middle aligned one column grid">
+                                    <div class="right aligned column">
+                                        <button v-on:click="onComment()" class="ui teal button">回帖</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="five wide column m-mobile-hide">
+                <div style="min-width: 300px;">
+                    <a href="/discussions" class="ui teal button"
+                       style="background-color: #22ae90; width: 100%">返回全部帖子</a>
+                    <div class="ui segments">
+                        <div class="ui secondary segment">
+                            <div class="ui two column grid">
+                                <h3 class="column">热帖</h3>
+                                <div class="right aligned column"></div>
+                            </div>
+                        </div>
+                        <div class="ui teal">
+                            <div class="ui fluid vertical menu" style="padding-bottom: 10px" v-if="discussions != null">
+                                <div class="item" v-for="discussion,index in discussions.list" v-if="index < 8">
+                                    <div style="padding: 5px;">
+                                        <a class="m-black" :href="'/discussion/'+discussion.discussionId"
+                                           style="color: #333;line-height: 25px"
+                                           v-text="discussion.title"></a>
+                                    </div>
+                                    <div style="padding: 5px;color: #888">
+                                    <span style="float: left"
+                                          v-text="'发表于 ' + dateFormat(discussion.createTime)"></span>
+                                        <span style="float: right"
+                                              v-text="'回复('+discussion.commentCount+')'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui dimmer modals page transition hidden">
+        <div id="error" class="ui mini test modal transition hidden">
+            <div class="header" style="color: red; text-align: center" v-text="message"></div>
+            <div class="actions">
+                <div class="ui positive right button">确定</div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer style="margin-top: 20px; background: rgba(33,33,33,0.1)!important;"
+        class="ui inverted vertical segment m-padded-tb-large">
+    <div class="content container ui">
+        <div class=" wide column">
+            <h2 class="m-text-thin m-text-spaced m-opacity-tiny" style="color: black">贺州学院算法竞赛训练平台</h2>
+        </div>
+    </div>
+</footer>
+</body>
+<!--<script th:replace="fragment::script"></script>-->
+<script src="../static/lib/vue/vue.js" th:src="@{/lib/vue/vue.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.js"></script>
+<script src="../static/js/jquery.min.js" charset="utf-8" th:src="@{/js/jquery.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script th:inline="javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            discussion: null,
+            discussions: {},
+            discussionId: [[${discussionId}]],
+            user: [[${user}]],
+            comments: [],
+            message: ""
+        },
+        methods: {
+            /**
+             * 加载讨论详情
+             */
+            initDiscussion() {
+                if (this.discussionId != null) {
+                    axios.post("/discussion/" + this.discussionId).then((result) => {
+                        if (result.data["code"] === 200) {
+                            this.discussion = result.data["data"];
+                        } else {
+                            this.showErrorMessage(result.data["message"]);
+                        }
+                    }).catch((error) => {
+                        this.showErrorMessage('系统错误');
+                    })
+                }
+            },
+            /**
+             * 加载讨论列表
+             */
+            initDiscussions() {
+                axios.post("/discussion/list", {})
+                    .then((result) => {
+                        if (result.data['code'] === 200) {
+                            this.discussions = result.data['data'];
+                        } else {
+                            this.showErrorMessage(result.data['message']);
+                        }
+                    }).catch((error) => {
+                    this.showErrorMessage('系统错误');
+                })
+            },
+            /**
+             * 加载讨论回复
+             */
+            initDiscussionComment() {
+                axios.post("/discussionComment/" + this.discussionId, {})
+                    .then((result) => {
+                        if (result.data['code'] === 200) {
+                            this.comments = result.data['data'];
+                        } else {
+                            this.showErrorMessage(result.data["message"]);
+                        }
+                    }).catch((error) => {
+                    this.showErrorMessage('系统错误');
+                })
+            },
+            /**
+             * 显示错误消息
+             * @param message
+             */
+            showErrorMessage(message) {
+                this.message = message;
+                $("#error").modal("show");
+            },
+            /**
+             * 用户获取用户rating颜色
+             * @param username
+             * @param rating
+             * @returns {string}
+             */
+            getUserRatingColor(username, rating) {
+                return common.getUserRatingColor(username, rating);
+            },
+            /**
+             * 格式化日期
+             * @param time
+             * @returns {string}
+             */
+            dateFormat(time) {
+                return common.getDateFormat(time);
+            },
+            /**
+             * 删除讨论
+             * @param discussionId
+             */
+            deleteDiscussion(discussionId) {
+                axios.post('/discussion/delete?discussionId=' + discussionId)
+                    .then((result) => {
+                        if (result.data["code"] === 200) {
+                            window.location.href = "/discussions";
+                        } else {
+                            this.showErrorMessage(result.data['message'])
+                        }
+                    }).catch((error) => {
+                    this.showErrorMessage('系统错误');
+                })
+            },
+            /**
+             * 删除讨论回复
+             * @param commentId
+             */
+            deleteDiscussionComment(commentId) {
+                axios.post('/discussionComment/delete/' + commentId)
+                    .then((result) => {
+                        if (result.data["code"] === 200) {
+                            this.initDiscussionComment();
+                            // this.discussion.discussionReplyCount = this.discussion.discussionReplyCount - 1;
+                        } else {
+                            this.showErrorMessage(result.data['message']);
+                        }
+                    }).catch((error) => {
+                    this.showErrorMessage('系统错误');
+                })
+            },
+            /**
+             * 讨论回复
+             * @param parentCommentId
+             * @param obj
+             */
+            onReply(parentCommentId, obj) {
+                const content = $(obj.currentTarget.parentNode.parentNode.firstChild.firstChild).val();
+                $(obj.currentTarget.parentNode.parentNode.firstChild.firstChild).val("");
+                this.discussionComment(parentCommentId, content);
+            },
+            onComment() {
+                let content = $("#commentContent").val();
+                this.discussionComment(-1, content);
+                $("#commentContent").val("")
+            },
+            /**
+             * 讨论回复
+             * @param parentCommentId
+             * @param content
+             */
+            discussionComment(parentCommentId, content) {
+                let comment = {};
+                comment["parentCommentId"] = parentCommentId;
+                comment["discussionId"] = this.discussionId;
+                comment['content'] = content;
+                axios.post('/discussionComment/save', comment)
+                    .then((result) => { // 正确的回调
+                        if (result.data["code"] === 200) {
+                            this.initDiscussionComment();
+                            // this.discussionReplyCount = this.discussion.discussionReplyCount + 1;
+                        } else {
+                            this.showErrorMessage(result.data['message']);
+                        }
+                    })
+                    .catch((error) => { // 错误的回调
+                        this.showErrorMessage('系统错误');
+                    });
+            }
+        },
+        created: function () {
+            this.initDiscussions();
+            this.initDiscussion();
+            this.initDiscussionComment();
+            common.initMarkdown();
+            $("#reply").css("display", "block");
+        }
+    });
+
+</script>
+</html>

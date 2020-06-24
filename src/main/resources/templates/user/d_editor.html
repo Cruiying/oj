@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>发表讨论</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="../static/css/semantic.css" th:href="@{/css/semantic.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/public.css" th:href="@{/css/public.css}" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css" th:href="@{/css/main.css}">
+    <style>
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+        .dropdown-content {
+            display: none;
+        }
+
+        .item.dropdown:hover .dropdown-content {
+            display: block;
+        }
+        #footer {
+            position:absolute; bottom:0;
+            width:100%;
+            height:60px; /* Height of the footer */
+            background:#6cf;
+        }
+    </style>
+</head>
+<body class="modal-page dimmable">
+<!--<nav th:replace="fragment::menu('discussions')"></nav>-->
+<div style="height: 20px;"></div>
+<div id="app">
+    <div class="ui container">
+        <div class="ui segment grid">
+            <div class="sixteen wide column">
+                <div class="ui form">
+                    <div class="field">
+                        <label><h2>标题</h2></label>
+                        <input v-if="discussion != null" type="text" name="title" v-model="discussion.title"
+                               placeholder="请输入标题....">
+                    </div>
+                    <div class="field">
+                        <label><h2>内容</h2></label>
+                        <div id="editor" >
+                            <textarea v-if="discussion != null" style="height: 600px;" v-model="discussion.content" class="typo  typo-selection js-toc-content"></textarea>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui middle aligned one column grid">
+                            <div class="center aligned column">
+                                <button v-on:click="saveOrUpdateDiscussion()" class="ui teal button">发布</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui dimmer modals page transition hidden">
+        <div id="message" class="ui mini test modal transition hidden">
+            <div class="header" style="color: green; text-align: center" v-text="message"></div>
+            <div class="actions">
+                <div class="ui positive right button">确定</div>
+            </div>
+        </div>
+        <div id="error" class="ui mini test modal transition hidden">
+            <div class="header" style="color: red; text-align: center" v-text="message"></div>
+            <div class="actions">
+                <div class="ui positive right button">确定</div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer style="background: rgba(33,33,33,0.1)!important;height: 100px;">
+    <div class="content ui">
+        <h2 class="m-text-thin m-text-spaced m-opacity-tiny" style="color: black">贺州学院算法竞赛训练平台</h2>
+    </div>
+</footer>
+</body>
+<script src="../static/lib/vue/vue.js" th:src="@{/lib/vue/vue.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.js"></script>
+<script src="../static/js/jquery.min.js" charset="utf-8" th:src="@{/js/jquery.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script src="../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            discussion: {},
+            discussionId: [[${discussionId}]],
+            message: '',
+
+        },
+        methods: {
+            /**
+             * 加载讨论
+             */
+            initDiscussion() {
+                if (this.discussionId != null) {
+                    axios.post("/discussion/" + this.discussionId).then((result) => {
+                        if (result.data["code"] === 200) {
+                            this.discussion = result.data["data"];
+                        } else {
+                            this.showErrorMessage(result.data["message"]);
+                        }
+                    }).catch((error) => {
+                        this.showErrorMessage('系统错误');
+                    })
+                }
+            },
+            /**
+             * 保存或更新
+             */
+            saveOrUpdateDiscussion() {
+                this.showErrorMessage('系统错误');
+                axios.post("/discussion/saveOrUpdate", this.discussion)
+                    .then((result) => {
+                        if (result.data["code"] === 200) {
+                            this.discussion = result.data["data"];
+                            this.showSaveOrUpdateDiscussionMessage(result.data["message"]);
+                        } else {
+                            this.showErrorMessage(result.data["message"]);
+                        }
+                    }).catch((error) => {
+                    this.showErrorMessage('系统错误');
+                })
+            },
+            /**
+             * 显示消息
+             */
+            showSaveOrUpdateDiscussionMessage(message) {
+                this.message = message;
+                $("#message").modal("show");
+            },
+            /**
+             * 显示错误消息
+             * @param message
+             */
+            showErrorMessage(message) {
+                this.message = message;
+                $("#error").modal("show");
+            }
+        },
+        created() {
+            this.initDiscussion();
+        }
+    })
+</script>
+</html>
