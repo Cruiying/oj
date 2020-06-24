@@ -39,7 +39,7 @@
         <tk.mybatis.version>2.1.5</tk.mybatis.version>
         <aspects.version>5.1.9.RELEASE</aspects.version>
         <commons.codec>1.6</commons.codec>
-        <commons.beanutils.version>1.9.3</commons.beanutils.version>
+        <commons.beanutils.version>1.9.4</commons.beanutils.version>
         <zookeeper.version>3.4.10</zookeeper.version>
     </properties>
     <repositories>
