@@ -50,12 +50,13 @@ public class CustomRealm extends AuthorizingRealm {
         System.out.println("————身份认证方法————");
         String token = (String) authenticationToken.getCredentials();
         // 解密获得username，用于和数据库进行对比
-        SysUserTokenDTO sysUserTokenPO = shiroService.queryByToken(token);
-
-        if (sysUserTokenPO == null || !sysUserTokenService.verify(sysUserTokenPO.getToken(), sysUserTokenPO.getUserId())) {
+        SysUserTokenDTO sysUserTokenDTO = shiroService.queryByToken(token);
+//        System.err.println(token);
+//        System.err.println(sysUserTokenDTO);
+        if (sysUserTokenDTO == null || !sysUserTokenService.verify(sysUserTokenDTO.getToken(), sysUserTokenDTO.getUserId())) {
             throw new AuthenticationException("token认证失败！");
         }
-        User user = userService.queryById(sysUserTokenPO.getUserId());
+        User user = userService.queryById(sysUserTokenDTO.getUserId());
         if (user == null) {
             throw new AuthenticationException("该用户不存在！");
         }

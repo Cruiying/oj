@@ -40,7 +40,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws UnauthorizedException {
-        System.err.println("KKK:" + mappedValue);
+//        System.err.println("KKK:" + mappedValue);
         System.err.println("过滤");
         //判断请求的请求头是否带上 "userToken"
         if (isLoginAttempt(request, response)) {
@@ -50,8 +50,9 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                 executeLogin(request, response);
                 return true;
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
                 log.error(e.getMessage());
+                return true;
             }
         }
         //如果请求头不存在 Token，则可能是执行登陆操作或者是游客状态访问，无需检查 token，直接返回 true
@@ -71,12 +72,12 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         HttpServletRequest req = (HttpServletRequest) request;
         String token = null;
         String cookieToken = CookieUtil.getCookieValue(req, "userToken", true);
-        System.err.println("cookieToken:"+cookieToken);
+//        System.err.println("cookieToken:"+cookieToken);
         if (StringUtils.isNotBlank(cookieToken)) {
             token = cookieToken;
         }
         String requestToken = request.getParameter("userToken");
-        System.err.println("requestToken:" + requestToken);
+//        System.err.println("requestToken:" + requestToken);
         if (StringUtils.isNotBlank(requestToken)) {
             token = requestToken;
         }
@@ -105,8 +106,8 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         if (StringUtils.isNotBlank(requestToken)) {
             token = requestToken;
         }
-        System.err.println("shiroService:" + shiroService);
-        System.err.println("userService:" + userService);
+//        System.err.println("shiroService:" + shiroService);
+//        System.err.println("userService:" + userService);
         SysUserTokenDTO sysUserTokenDTO = shiroService.queryByToken(token);
         if (sysUserTokenDTO == null) {
             //redis登录过期
