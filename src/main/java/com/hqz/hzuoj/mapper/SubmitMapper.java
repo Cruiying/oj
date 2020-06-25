@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.mapper;
 
-import com.hqz.hzuoj.entity.Submit;
+import com.hqz.hzuoj.entity.model.Submit;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 

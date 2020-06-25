@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.User;
+import com.hqz.hzuoj.entity.model.User;
 import java.util.List;
 
 /**

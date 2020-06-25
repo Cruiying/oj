@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.Solution;
+import com.hqz.hzuoj.entity.model.Solution;
 import java.util.List;
 
 /**

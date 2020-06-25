@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.ContestRegister;
+import com.hqz.hzuoj.entity.model.ContestRegister;
 import com.hqz.hzuoj.service.ContestRegisterService;
 import org.springframework.web.bind.annotation.*;
 

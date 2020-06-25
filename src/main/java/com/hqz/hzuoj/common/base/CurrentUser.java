@@ -2,10 +2,8 @@ package com.hqz.hzuoj.common.base;
 
 
 import com.hqz.hzuoj.common.exception.MyException;
-import com.hqz.hzuoj.common.exception.enums.ErrorEnum;
 import com.hqz.hzuoj.common.util.SessionUtils;
-import com.hqz.hzuoj.entity.User;
-import org.apache.shiro.SecurityUtils;
+import com.hqz.hzuoj.entity.model.User;
 
 /**
  * AbstractController

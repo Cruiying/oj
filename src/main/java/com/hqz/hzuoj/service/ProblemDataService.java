@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.ProblemData;
+import com.hqz.hzuoj.entity.model.ProblemData;
 import java.util.List;
 
 /**

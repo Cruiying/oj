@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.ContestRankInfoMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.ContestRankInfo" id="ContestRankInfoMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.ContestRankInfo" id="ContestRankInfoMap">
         <result property="contestRankInfoId" column="contest_rank_info_id" jdbcType="INTEGER"/>
         <result property="contestRankId" column="contest_rank_id" jdbcType="INTEGER"/>
         <result property="problemId" column="problem_id" jdbcType="INTEGER"/>

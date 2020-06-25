@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.Submit;
+import com.hqz.hzuoj.entity.model.Submit;
 import com.hqz.hzuoj.mapper.SubmitMapper;
 import com.hqz.hzuoj.service.SubmitService;
 import org.springframework.stereotype.Service;

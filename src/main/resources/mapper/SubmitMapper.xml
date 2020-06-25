@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.SubmitMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.Submit" id="SubmitMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.Submit" id="SubmitMap">
         <result property="submitId" column="submit_id" jdbcType="INTEGER"/>
         <result property="problemId" column="problem_id" jdbcType="INTEGER"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>

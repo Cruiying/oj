@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.Submit;
+import com.hqz.hzuoj.entity.model.Submit;
 import java.util.List;
 
 /**

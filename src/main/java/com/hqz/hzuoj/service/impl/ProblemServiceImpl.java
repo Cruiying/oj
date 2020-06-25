@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.Problem;
+import com.hqz.hzuoj.entity.model.Problem;
 import com.hqz.hzuoj.mapper.ProblemMapper;
 import com.hqz.hzuoj.service.ProblemService;
 import org.springframework.stereotype.Service;

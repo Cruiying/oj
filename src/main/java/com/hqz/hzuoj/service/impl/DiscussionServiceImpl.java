@@ -2,14 +2,13 @@ package com.hqz.hzuoj.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.hqz.hzuoj.DO.DiscussionUserDO;
+import com.hqz.hzuoj.entity.DO.DiscussionUserDO;
 import com.hqz.hzuoj.common.base.CurrentUser;
 import com.hqz.hzuoj.common.util.PageUtils;
-import com.hqz.hzuoj.entity.Discussion;
+import com.hqz.hzuoj.entity.model.Discussion;
 import com.hqz.hzuoj.mapper.DiscussionMapper;
 import com.hqz.hzuoj.service.DiscussionService;
-import com.hqz.hzuoj.service.UserService;
-import com.hqz.hzuoj.VO.DiscussionQueryVO;
+import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

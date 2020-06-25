@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.mapper;
 
-import com.hqz.hzuoj.entity.JudgeResult;
+import com.hqz.hzuoj.entity.model.JudgeResult;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.ProblemMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.Problem" id="ProblemMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.Problem" id="ProblemMap">
         <result property="problemId" column="problem_id" jdbcType="INTEGER"/>
         <result property="publicCode" column="public_code" jdbcType="VARCHAR"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>

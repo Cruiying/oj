@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.User;
+import com.hqz.hzuoj.entity.model.User;
 import com.hqz.hzuoj.mapper.UserMapper;
 import com.hqz.hzuoj.service.UserService;
 import org.springframework.stereotype.Service;

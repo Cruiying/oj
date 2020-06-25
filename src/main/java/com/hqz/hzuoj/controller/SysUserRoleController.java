@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.SysUserRole;
+import com.hqz.hzuoj.entity.model.SysUserRole;
 import com.hqz.hzuoj.service.SysUserRoleService;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.Language;
+import com.hqz.hzuoj.entity.model.Language;
 import com.hqz.hzuoj.mapper.LanguageMapper;
 import com.hqz.hzuoj.service.LanguageService;
 import org.springframework.stereotype.Service;

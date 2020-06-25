@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.ProblemExample;
+import com.hqz.hzuoj.entity.model.ProblemExample;
 import com.hqz.hzuoj.mapper.ProblemExampleMapper;
 import com.hqz.hzuoj.service.ProblemExampleService;
 import org.springframework.stereotype.Service;

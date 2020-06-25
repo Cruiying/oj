@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.JudgeResult;
+import com.hqz.hzuoj.entity.model.JudgeResult;
 import com.hqz.hzuoj.mapper.JudgeResultMapper;
 import com.hqz.hzuoj.service.JudgeResultService;
 import org.springframework.stereotype.Service;

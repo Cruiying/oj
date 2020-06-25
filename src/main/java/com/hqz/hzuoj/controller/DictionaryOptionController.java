@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.DictionaryOption;
+import com.hqz.hzuoj.entity.model.DictionaryOption;
 import com.hqz.hzuoj.service.DictionaryOptionService;
 import org.springframework.web.bind.annotation.*;
 

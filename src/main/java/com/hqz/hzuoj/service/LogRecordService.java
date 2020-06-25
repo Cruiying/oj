@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.LogRecord;
+import com.hqz.hzuoj.entity.model.LogRecord;
 import java.util.List;
 
 /**

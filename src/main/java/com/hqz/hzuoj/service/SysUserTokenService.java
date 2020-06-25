@@ -1,16 +1,10 @@
 package com.hqz.hzuoj.service;
 
 
-import com.hqz.hzuoj.common.R;
-import com.hqz.hzuoj.VO.SysUserTokenVO;
+import com.hqz.hzuoj.entity.DTO.SysUserTokenDTO;
 
 /**
- * SysUserTokenService
  *
- * @author bobbi
- * @date 2018/10/20 15:17
- * @email 571002217@qq.com
- * @description
  */
 public interface SysUserTokenService {
     /**
@@ -18,14 +12,37 @@ public interface SysUserTokenService {
      * @param userId
      * @return
      */
-    R createToken(Integer userId);
+    String createToken(Integer userId);
+
+    /**
+     * 保存token
+     * @param token
+     * @param userId
+     * @return
+     */
+    boolean saveToken(String token, Integer userId);
+
+    /**
+     * token验证
+     * @param token
+     * @param userId
+     * @return
+     */
+    boolean verify(String token, Integer userId);
 
     /**
      * 查询token
      * @param token
      * @return
      */
-    SysUserTokenVO queryByToken(String token);
+    SysUserTokenDTO queryByToken(String token);
+
+    /**
+     *
+     * @param token
+     * @return
+     */
+    String getUsername(String token);
 
     /**
      * 退出登录

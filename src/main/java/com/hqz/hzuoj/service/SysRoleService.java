@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.SysRole;
+import com.hqz.hzuoj.entity.model.SysRole;
 import java.util.List;
 
 /**

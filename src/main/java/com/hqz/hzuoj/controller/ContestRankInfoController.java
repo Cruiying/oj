@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.ContestRankInfo;
+import com.hqz.hzuoj.entity.model.ContestRankInfo;
 import com.hqz.hzuoj.service.ContestRankInfoService;
 import org.springframework.web.bind.annotation.*;
 

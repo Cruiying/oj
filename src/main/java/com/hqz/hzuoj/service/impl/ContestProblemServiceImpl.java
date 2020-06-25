@@ -2,7 +2,7 @@ package com.hqz.hzuoj.service.impl;
 
 
 import com.hqz.hzuoj.mapper.ContestProblemMapper;
-import com.hqz.hzuoj.entity.ContestProblem;
+import com.hqz.hzuoj.entity.model.ContestProblem;
 import com.hqz.hzuoj.service.ContestProblemService;
 import org.springframework.stereotype.Service;
 

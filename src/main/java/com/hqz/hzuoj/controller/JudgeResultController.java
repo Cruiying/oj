@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.JudgeResult;
+import com.hqz.hzuoj.entity.model.JudgeResult;
 import com.hqz.hzuoj.service.JudgeResultService;
 import org.springframework.web.bind.annotation.*;
 

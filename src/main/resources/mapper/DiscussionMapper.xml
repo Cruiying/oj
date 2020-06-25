@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.DiscussionMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.Discussion" id="DiscussionMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.Discussion" id="DiscussionMap">
         <result property="discussionId" column="discussion_id" jdbcType="INTEGER"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -71,13 +71,13 @@
     </select>
 
 <!--    通过ID查询对象 -->
-    <select id="findById" resultType="com.hqz.hzuoj.DO.DiscussionUserDO">
+    <select id="findById" resultType="com.hqz.hzuoj.entity.DO.DiscussionUserDO">
         select * from discussion  d
         join user u on d.user_id = u.user_id
         where d.discussion_id = #{discussionId}
     </select>
 
-    <select id="findDiscussions" resultType="com.hqz.hzuoj.DO.DiscussionUserDO">
+    <select id="findDiscussions" resultType="com.hqz.hzuoj.entity.DO.DiscussionUserDO">
         select * from discussion  d
         join user u on d.user_id = u.user_id
     </select>

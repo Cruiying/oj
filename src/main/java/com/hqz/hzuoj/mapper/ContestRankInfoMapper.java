@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.mapper;
 
-import com.hqz.hzuoj.entity.ContestRankInfo;
+import com.hqz.hzuoj.entity.model.ContestRankInfo;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 

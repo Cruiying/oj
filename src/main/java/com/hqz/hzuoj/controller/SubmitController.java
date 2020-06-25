@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.Submit;
+import com.hqz.hzuoj.entity.model.Submit;
 import com.hqz.hzuoj.service.SubmitService;
 import org.springframework.web.bind.annotation.*;
 

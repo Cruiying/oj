@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.SysMenu;
+import com.hqz.hzuoj.entity.model.SysMenu;
 import com.hqz.hzuoj.mapper.SysMenuMapper;
 import com.hqz.hzuoj.service.SysMenuService;
 import org.springframework.stereotype.Service;

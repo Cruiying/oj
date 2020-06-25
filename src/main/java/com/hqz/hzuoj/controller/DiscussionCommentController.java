@@ -1,7 +1,7 @@
 package com.hqz.hzuoj.controller;
 
 import com.hqz.hzuoj.common.R;
-import com.hqz.hzuoj.entity.DiscussionComment;
+import com.hqz.hzuoj.entity.model.DiscussionComment;
 import com.hqz.hzuoj.service.DiscussionCommentService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

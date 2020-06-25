@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.Language;
+import com.hqz.hzuoj.entity.model.Language;
 import java.util.List;
 
 /**

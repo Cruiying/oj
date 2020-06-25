@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.SysMenu;
+import com.hqz.hzuoj.entity.model.SysMenu;
 import java.util.List;
 
 /**

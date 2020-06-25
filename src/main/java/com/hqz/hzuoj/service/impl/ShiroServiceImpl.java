@@ -1,17 +1,15 @@
 package com.hqz.hzuoj.service.impl;
 
 
-import com.hqz.hzuoj.common.constants.RedisKeyConstants;
-import com.hqz.hzuoj.mapper.SysMenuMapper;
-import com.hqz.hzuoj.mapper.UserMapper;
-import com.hqz.hzuoj.entity.User;
+import com.hqz.hzuoj.entity.DTO.SysUserTokenDTO;
 import com.hqz.hzuoj.service.ShiroService;
 import com.hqz.hzuoj.service.SysUserTokenService;
-import com.hqz.hzuoj.VO.SysUserTokenVO;
+import com.hqz.hzuoj.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -28,13 +26,11 @@ import java.util.stream.Collectors;
 @Service
 public class ShiroServiceImpl implements ShiroService {
 
-    @Autowired
-    private UserMapper userMapper;
+    @Resource
+    private UserService userService;
 
-    @Autowired
-    private SysMenuMapper sysMenuMapper;
 
-    @Autowired
+    @Resource
     private SysUserTokenService sysUserTokenService;
 
     /**
@@ -49,7 +45,7 @@ public class ShiroServiceImpl implements ShiroService {
         /**
          * 获取用户权限
          */
-        List<String>  permsList = null;
+        List<java.lang.String>  permsList = null;
 
         //返回用户权限列表
         return permsList.stream()
@@ -68,19 +64,8 @@ public class ShiroServiceImpl implements ShiroService {
      * @return
      */
     @Override
-    public SysUserTokenVO queryByToken(String token) {
-        return sysUserTokenService.queryByToken(RedisKeyConstants.MANAGE_SYS_USER_TOKEN + token);
-    }
-
-    /**
-     * 查询用户信息
-     *
-     * @param userId
-     * @return
-     */
-    @Override
-    public User queryUser(Integer userId) {
-        return userMapper.queryById(userId);
+    public SysUserTokenDTO queryByToken(String token) {
+        return sysUserTokenService.queryByToken(token);
     }
 
     /**

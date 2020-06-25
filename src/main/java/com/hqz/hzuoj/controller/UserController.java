@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.User;
+import com.hqz.hzuoj.entity.model.User;
 import com.hqz.hzuoj.service.UserService;
 import org.springframework.web.bind.annotation.*;
 

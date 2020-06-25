@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.ProblemTag;
+import com.hqz.hzuoj.entity.model.ProblemTag;
 import com.hqz.hzuoj.service.ProblemTagService;
 import org.springframework.web.bind.annotation.*;
 

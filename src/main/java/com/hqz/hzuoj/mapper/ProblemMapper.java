@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.mapper;
 
-import com.hqz.hzuoj.entity.Problem;
+import com.hqz.hzuoj.entity.model.Problem;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 

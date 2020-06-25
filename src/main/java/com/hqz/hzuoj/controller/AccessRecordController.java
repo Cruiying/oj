@@ -1,8 +1,7 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.AccessRecord;
+import com.hqz.hzuoj.entity.model.AccessRecord;
 import com.hqz.hzuoj.service.AccessRecordService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

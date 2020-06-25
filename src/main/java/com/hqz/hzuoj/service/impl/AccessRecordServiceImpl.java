@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.AccessRecord;
+import com.hqz.hzuoj.entity.model.AccessRecord;
 import com.hqz.hzuoj.mapper.AccessRecordMapper;
 import com.hqz.hzuoj.service.AccessRecordService;
 import org.springframework.stereotype.Service;

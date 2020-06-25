@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.SysRoleMenu;
+import com.hqz.hzuoj.entity.model.SysRoleMenu;
 import com.hqz.hzuoj.service.SysRoleMenuService;
 import org.springframework.web.bind.annotation.*;
 

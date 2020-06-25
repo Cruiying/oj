@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.DictionaryOption;
+import com.hqz.hzuoj.entity.model.DictionaryOption;
 import java.util.List;
 
 /**

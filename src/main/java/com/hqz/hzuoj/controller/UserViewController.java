@@ -1,9 +1,10 @@
 package com.hqz.hzuoj.controller;
 
 import com.hqz.hzuoj.common.base.CurrentUser;
-import com.hqz.hzuoj.VO.DiscussionQueryVO;
+import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,7 @@ public class UserViewController {
 
     @RequestMapping(value = "/discussions", method = RequestMethod.GET)
     @ApiOperation("讨论列表页面")
+    @RequiresPermissions("discussions:list")
     public String discussions(DiscussionQueryVO discussionQueryVO, Model map) {
         map.addAttribute("query", discussionQueryVO);
         return "user/discussions";

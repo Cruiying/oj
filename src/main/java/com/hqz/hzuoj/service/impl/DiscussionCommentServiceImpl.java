@@ -2,9 +2,9 @@ package com.hqz.hzuoj.service.impl;
 
 import com.hqz.hzuoj.common.base.CurrentUser;
 import com.hqz.hzuoj.common.exception.MyException;
-import com.hqz.hzuoj.DTO.DiscussionCommentDTO;
-import com.hqz.hzuoj.entity.Discussion;
-import com.hqz.hzuoj.entity.DiscussionComment;
+import com.hqz.hzuoj.entity.DTO.DiscussionCommentDTO;
+import com.hqz.hzuoj.entity.model.Discussion;
+import com.hqz.hzuoj.entity.model.DiscussionComment;
 import com.hqz.hzuoj.mapper.DiscussionCommentMapper;
 import com.hqz.hzuoj.service.DiscussionCommentService;
 import com.hqz.hzuoj.service.DiscussionService;

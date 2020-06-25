@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.Language;
+import com.hqz.hzuoj.entity.model.Language;
 import com.hqz.hzuoj.service.LanguageService;
 import org.springframework.web.bind.annotation.*;
 

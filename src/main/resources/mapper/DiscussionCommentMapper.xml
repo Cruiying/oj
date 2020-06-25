@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.DiscussionCommentMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.DiscussionComment" id="DiscussionCommentMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.DiscussionComment" id="DiscussionCommentMap">
         <result property="discussionCommentId" column="discussion_comment_id" jdbcType="INTEGER"/>
         <result property="discussionId" column="discussion_id" jdbcType="INTEGER"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
@@ -53,7 +53,7 @@
             </if>
         </where>
     </select>
-    <select id="queryDiscussionComment" resultType="com.hqz.hzuoj.entity.DiscussionComment">
+    <select id="queryDiscussionComment" resultType="com.hqz.hzuoj.entity.model.DiscussionComment">
         select * from discussion_comment where discussion_id = #{discussionId}
     </select>
 
