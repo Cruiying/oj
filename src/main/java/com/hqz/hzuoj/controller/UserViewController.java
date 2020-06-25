@@ -4,9 +4,11 @@ import com.hqz.hzuoj.common.base.CurrentUser;
 import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +26,12 @@ public class UserViewController {
     @RequestMapping(value = "/discussion/editor", method = RequestMethod.GET)
     @ApiOperation("讨论编辑页面")
     public String discussionEditor(Integer discussionId, Model map) {
-        map.addAttribute("discussionId", discussionId);
+        if (discussionId == null) {
+            map.addAttribute("discussionId", -1);
+        } else {
+            map.addAttribute("discussionId", discussionId);
+        }
+
         return "user/d_editor";
     }
 
@@ -38,7 +45,6 @@ public class UserViewController {
 
     @RequestMapping(value = "/discussions", method = RequestMethod.GET)
     @ApiOperation("讨论列表页面")
-    @RequiresPermissions("discussions:list")
     public String discussions(DiscussionQueryVO discussionQueryVO, Model map) {
         map.addAttribute("query", discussionQueryVO);
         return "user/discussions";
@@ -48,5 +54,17 @@ public class UserViewController {
     @ApiOperation("用户登录界面")
     public String login() {
         return "user/login";
+    }
+
+    @RequestMapping(value = "problems", method = RequestMethod.GET)
+    @ApiOperation("题目列表界面")
+    public String problems() {
+        return "user/problems";
+    }
+
+    @RequestMapping(value = "problem", method = RequestMethod.GET)
+    @ApiOperation("题目详情页面")
+    public String problem() {
+        return "user/problem";
     }
 }
