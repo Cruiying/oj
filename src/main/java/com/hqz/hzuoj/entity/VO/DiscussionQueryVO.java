@@ -11,7 +11,7 @@ public class DiscussionQueryVO implements Serializable {
      * 每页记录数
      */
     @ApiModelProperty("每页记录数")
-    private int pageSize = 3;
+    private int pageSize = 10;
     /**
      * 当前页数
      */

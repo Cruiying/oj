@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-<!--<nav th:replace="fragment::menu('discussions')"></nav>-->
+<nav th:replace="fragment::menu('discussions')"></nav>
 <div style="height: 50px;"></div>
 <div id="app" class="ui container" style="min-height: 350px;">
     <div style="display: block;" :style="'display: none'" class="ui active centered inline loader"></div>
@@ -40,12 +40,14 @@
         <!--    搜索-->
         <div class="ui ">
             <div class="seven wide column">
-                <form action="/oj/discussions" class="layui-form" method="get">
+                <form :action="'/discussions'" class="layui-form" method="get">
                     <div class="ui search" style="width: 280px; height: 28px; margin-top: -5.3px; ">
+                        <input type="hidden" name="pageSize" :value="query.pageSize">
+                        <input type="hidden" name="currPage" :value="query.currPage">
+                        <input type="hidden" name="type" :value="query.type">
+                        <input type="hidden" name="order" :value="query.order">
                         <div class="ui icon input" style="width: 100%; ">
-                            <input class="prompt" style="width: 100%;" v-model="query.query" type="text"
-                                   placeholder="输入标题搜索..."
-                                   name="discussionTitle" autocomplete="off">
+                            <input class="prompt" style="width: 100%;" v-model="query.query" type="text" placeholder="输入标题搜索..." name="title" autocomplete="off">
                             <i class="search icon"></i>
                         </div>
                         <div class="results" style="width: 100%; "></div>
@@ -67,33 +69,33 @@
                 </div>
             </div>
         </div>
-        <div class="ui" v-for="item in pageInfo.list">
+        <div class="ui" v-for="discussion in pageInfo.list">
             <div class="ui grid">
                 <div class="column">
                     <div class="header">
-                        <a :href="'/user/'+item.user.userId"><img alt="头像" class="head-pic" :src="item.user.img != null && item.user.img.length>0 ? item.user.img: '/images/default.png'"></a>
+                        <a :href="'/user/'+discussion.userId"><img alt="头像" class="head-pic" :src="discussion.img != null && discussion.img.length>0 ? discussion.img: '/images/default.png'"></a>
                         <h4>
-                            <a class="m-black" :href="'/discussion/'+item.discussion.discussionId" style="color: #333; "
-                               v-text="item.discussion.title"></a>
-                            &nbsp&nbsp;<a v-if="discussionIsTop(item.discussion.top)" style="font-size: 11px"
+                            <a class="m-black" :href="'/discussion/'+discussion.discussionId" style="color: #333; "
+                               v-text="discussion.title"></a>
+                            &nbsp&nbsp;<a v-if="discussionIsTop(discussion.top)" style="font-size: 11px"
                                           class="ui inverted red button m-padded-tiny m-text-thin"><b> 置顶 </b></a>
                         </h4>
                     </div>
                     <div style="padding-top: 8px;" class="ui middle aligned two column grid">
                         <div class="left aligned column">
                             <div style="color: rgba(33,33,33,0.5);">
-                                <a :href="'/user/'+item.user.userId" style="margin-right: 10px;"
-                                   v-html="getUserRatingColor(item.user.username,item.user.rating)"></a>
-                                <span v-text="dateFormat(item.discussion.createTime)"></span>
+                                <a :href="'/user/'+discussion.userId" style="margin-right: 10px;"
+                                   v-html="getUserRatingColor(discussion.username,discussion.rating)"></a>
+                                <span v-text="dateFormat(discussion.createTime)"></span>
                             </div>
                         </div>
                         <div class="right aligned column">
                             <div style="color: rgba(33,33,33,0.5)">
-                                <span v-text="'回复 ' + item.discussion.commentCount"></span>
+                                <span v-text="'回复 ' + discussion.commentCount"></span>
                                 <span> | </span>
-                                <span v-text="'赞 ' + item.discussion.commendCount"></span>
+                                <span v-text="'赞 ' + discussion.commendCount"></span>
                                 <span> | </span>
-                                <span v-text="'浏览 ' + item.discussion.browseCount"></span>
+                                <span v-text="'浏览 ' + discussion.browseCount"></span>
                             </div>
                         </div>
                     </div>
@@ -171,10 +173,13 @@
                 })
             },
             search(currPage) {
-                this.query["currPage"] = currPage;
-                let url = common.getURL(this.query);
-                this.$router.push("/discussions" + url);
+                let url = this.getURL(currPage);
+                window.location.href="/discussions"+url;
             },
+            getURL(currPage) {
+                this.query["currPage"] = currPage;
+                return common.getURL(this.query);
+            }
 
         },
         created: function () {

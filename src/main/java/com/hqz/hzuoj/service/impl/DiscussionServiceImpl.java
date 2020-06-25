@@ -101,6 +101,7 @@ public class DiscussionServiceImpl implements DiscussionService {
      */
     @Override
     public PageUtils findDiscussions(DiscussionQueryVO discussionQueryVO) {
+        System.err.println(discussionQueryVO);
         PageHelper.startPage(discussionQueryVO.getCurrPage(), discussionQueryVO.getPageSize(), true);
         List<DiscussionUserDO> discussions = discussionMapper.findDiscussions(discussionQueryVO);
         PageInfo<DiscussionUserDO> pageInfo = new PageInfo<>(discussions);
