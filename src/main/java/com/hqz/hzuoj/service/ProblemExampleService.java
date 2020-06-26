@@ -1,5 +1,6 @@
 package com.hqz.hzuoj.service;
 
+import com.hqz.hzuoj.entity.DO.ProblemExampleListDO;
 import com.hqz.hzuoj.entity.model.ProblemExample;
 import java.util.List;
 
@@ -52,4 +53,10 @@ public interface ProblemExampleService {
      */
     boolean deleteById(Integer problemExampleId);
 
+    /**
+     * 获取题目样例
+     * @param problemId
+     * @return
+     */
+    List<ProblemExampleListDO> findProblemExamples(Integer problemId);
 }

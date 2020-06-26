@@ -1,5 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
+import com.hqz.hzuoj.entity.DO.ProblemDataDO;
 import com.hqz.hzuoj.entity.model.ProblemData;
 import com.hqz.hzuoj.mapper.ProblemDataMapper;
 import com.hqz.hzuoj.service.ProblemDataService;
@@ -17,7 +18,7 @@ import java.util.List;
 @Service("problemDataService")
 public class ProblemDataServiceImpl implements ProblemDataService {
     @Resource
-    private ProblemDataMapper problemDataDao;
+    private ProblemDataMapper problemDataMapper;
 
     /**
      * 通过ID查询单条数据
@@ -27,7 +28,7 @@ public class ProblemDataServiceImpl implements ProblemDataService {
      */
     @Override
     public ProblemData queryById(Integer problemDataId) {
-        return this.problemDataDao.queryById(problemDataId);
+        return this.problemDataMapper.queryById(problemDataId);
     }
 
     /**
@@ -39,7 +40,7 @@ public class ProblemDataServiceImpl implements ProblemDataService {
      */
     @Override
     public List<ProblemData> queryAllByLimit(int offset, int limit) {
-        return this.problemDataDao.queryAllByLimit(offset, limit);
+        return this.problemDataMapper.queryAllByLimit(offset, limit);
     }
 
     /**
@@ -50,7 +51,7 @@ public class ProblemDataServiceImpl implements ProblemDataService {
      */
     @Override
     public ProblemData insert(ProblemData problemData) {
-        this.problemDataDao.insert(problemData);
+        this.problemDataMapper.insert(problemData);
         return problemData;
     }
 
@@ -62,7 +63,7 @@ public class ProblemDataServiceImpl implements ProblemDataService {
      */
     @Override
     public ProblemData update(ProblemData problemData) {
-        this.problemDataDao.update(problemData);
+        this.problemDataMapper.update(problemData);
         return this.queryById(problemData.getProblemDataId());
     }
 
@@ -74,6 +75,16 @@ public class ProblemDataServiceImpl implements ProblemDataService {
      */
     @Override
     public boolean deleteById(Integer problemDataId) {
-        return this.problemDataDao.deleteById(problemDataId) > 0;
+        return this.problemDataMapper.deleteById(problemDataId) > 0;
+    }
+
+    /**
+     * 获取题目时间与内存限制
+     * @param problemId
+     * @return
+     */
+    @Override
+    public ProblemDataDO findProblemRuntimeTimeAndRuntimeMemory(Integer problemId) {
+        return problemDataMapper.findProblemRuntimeTimeAndRuntimeMemory(problemId);
     }
 }

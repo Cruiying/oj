@@ -1,5 +1,6 @@
 package com.hqz.hzuoj.service;
 
+import com.hqz.hzuoj.entity.DO.ProblemDataDO;
 import com.hqz.hzuoj.entity.model.ProblemData;
 import java.util.List;
 
@@ -52,4 +53,10 @@ public interface ProblemDataService {
      */
     boolean deleteById(Integer problemDataId);
 
+    /**
+     * 获取题目与内存事件限制
+     * @param problemId
+     * @return
+     */
+    ProblemDataDO findProblemRuntimeTimeAndRuntimeMemory(Integer problemId);
 }

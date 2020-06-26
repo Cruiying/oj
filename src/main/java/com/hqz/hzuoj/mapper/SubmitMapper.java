@@ -62,4 +62,10 @@ public interface SubmitMapper {
      */
     int deleteById(Integer submitId);
 
+    /**
+     * 获取题目通过数量
+     * @param problemId
+     * @return
+     */
+    Integer findProblemAcceptedTotal(Integer problemId);
 }

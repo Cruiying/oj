@@ -1,5 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
+import com.hqz.hzuoj.entity.DO.ProblemExampleListDO;
 import com.hqz.hzuoj.entity.model.ProblemExample;
 import com.hqz.hzuoj.mapper.ProblemExampleMapper;
 import com.hqz.hzuoj.service.ProblemExampleService;
@@ -17,7 +18,7 @@ import java.util.List;
 @Service("problemExampleService")
 public class ProblemExampleServiceImpl implements ProblemExampleService {
     @Resource
-    private ProblemExampleMapper problemExampleDao;
+    private ProblemExampleMapper problemExampleMapper;
 
     /**
      * 通过ID查询单条数据
@@ -27,7 +28,7 @@ public class ProblemExampleServiceImpl implements ProblemExampleService {
      */
     @Override
     public ProblemExample queryById(Integer problemExampleId) {
-        return this.problemExampleDao.queryById(problemExampleId);
+        return this.problemExampleMapper.queryById(problemExampleId);
     }
 
     /**
@@ -39,7 +40,7 @@ public class ProblemExampleServiceImpl implements ProblemExampleService {
      */
     @Override
     public List<ProblemExample> queryAllByLimit(int offset, int limit) {
-        return this.problemExampleDao.queryAllByLimit(offset, limit);
+        return this.problemExampleMapper.queryAllByLimit(offset, limit);
     }
 
     /**
@@ -50,7 +51,7 @@ public class ProblemExampleServiceImpl implements ProblemExampleService {
      */
     @Override
     public ProblemExample insert(ProblemExample problemExample) {
-        this.problemExampleDao.insert(problemExample);
+        this.problemExampleMapper.insert(problemExample);
         return problemExample;
     }
 
@@ -62,7 +63,7 @@ public class ProblemExampleServiceImpl implements ProblemExampleService {
      */
     @Override
     public ProblemExample update(ProblemExample problemExample) {
-        this.problemExampleDao.update(problemExample);
+        this.problemExampleMapper.update(problemExample);
         return this.queryById(problemExample.getProblemExampleId());
     }
 
@@ -74,6 +75,16 @@ public class ProblemExampleServiceImpl implements ProblemExampleService {
      */
     @Override
     public boolean deleteById(Integer problemExampleId) {
-        return this.problemExampleDao.deleteById(problemExampleId) > 0;
+        return this.problemExampleMapper.deleteById(problemExampleId) > 0;
+    }
+
+    /**
+     * 获取题目样例
+     * @param problemId
+     * @return
+     */
+    @Override
+    public List<ProblemExampleListDO> findProblemExamples(Integer problemId) {
+        return problemExampleMapper.findProblemExamples(problemId);
     }
 }

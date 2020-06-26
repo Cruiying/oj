@@ -17,7 +17,7 @@ import java.util.List;
 @Service("submitService")
 public class SubmitServiceImpl implements SubmitService {
     @Resource
-    private SubmitMapper submitDao;
+    private SubmitMapper submitMapper;
 
     /**
      * 通过ID查询单条数据
@@ -27,7 +27,7 @@ public class SubmitServiceImpl implements SubmitService {
      */
     @Override
     public Submit queryById(Integer submitId) {
-        return this.submitDao.queryById(submitId);
+        return this.submitMapper.queryById(submitId);
     }
 
     /**
@@ -39,7 +39,7 @@ public class SubmitServiceImpl implements SubmitService {
      */
     @Override
     public List<Submit> queryAllByLimit(int offset, int limit) {
-        return this.submitDao.queryAllByLimit(offset, limit);
+        return this.submitMapper.queryAllByLimit(offset, limit);
     }
 
     /**
@@ -50,7 +50,7 @@ public class SubmitServiceImpl implements SubmitService {
      */
     @Override
     public Submit insert(Submit submit) {
-        this.submitDao.insert(submit);
+        this.submitMapper.insert(submit);
         return submit;
     }
 
@@ -62,7 +62,7 @@ public class SubmitServiceImpl implements SubmitService {
      */
     @Override
     public Submit update(Submit submit) {
-        this.submitDao.update(submit);
+        this.submitMapper.update(submit);
         return this.queryById(submit.getSubmitId());
     }
 
@@ -74,6 +74,16 @@ public class SubmitServiceImpl implements SubmitService {
      */
     @Override
     public boolean deleteById(Integer submitId) {
-        return this.submitDao.deleteById(submitId) > 0;
+        return this.submitMapper.deleteById(submitId) > 0;
+    }
+
+    /**
+     * 获取题目提交通过数量
+     * @param problemId
+     * @return
+     */
+    @Override
+    public Integer findProblemAcceptedTotal(Integer problemId) {
+        return submitMapper.findProblemAcceptedTotal(problemId);
     }
 }

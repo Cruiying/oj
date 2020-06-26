@@ -1,6 +1,7 @@
 package com.hqz.hzuoj.entity.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @author Cruiying
  * @since 2020-06-22 21:17:30
  */
+@Data
 public class Contest implements Serializable {
     private static final long serialVersionUID = -56940215979472642L;
     /**

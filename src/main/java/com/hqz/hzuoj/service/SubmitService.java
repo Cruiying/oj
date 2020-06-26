@@ -52,4 +52,10 @@ public interface SubmitService {
      */
     boolean deleteById(Integer submitId);
 
+    /**
+     * 获取题目提交通过数量
+     * @param problemId
+     * @return
+     */
+    Integer findProblemAcceptedTotal(Integer problemId);
 }

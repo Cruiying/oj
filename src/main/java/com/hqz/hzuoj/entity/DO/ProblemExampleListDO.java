@@ -1,4 +1,4 @@
-package com.hqz.hzuoj.entity.model;
+package com.hqz.hzuoj.entity.DO;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -12,16 +12,9 @@ import java.io.Serializable;
  * @since 2020-06-22 21:17:32
  */
 @Data
-public class ProblemExample implements Serializable {
+public class ProblemExampleListDO implements Serializable {
     private static final long serialVersionUID = -92397934252878613L;
 
-    @ApiModelProperty("${column.comment}")
-    private Integer problemExampleId;
-    /**
-    * 题目ID
-    */
-    @ApiModelProperty("题目ID")
-    private Integer problemId;
     /**
     * 输入样例
     */
@@ -33,22 +26,6 @@ public class ProblemExample implements Serializable {
     @ApiModelProperty("输出样例")
     private String outputContent;
 
-
-    public Integer getProblemExampleId() {
-        return problemExampleId;
-    }
-
-    public void setProblemExampleId(Integer problemExampleId) {
-        this.problemExampleId = problemExampleId;
-    }
-
-    public Integer getProblemId() {
-        return problemId;
-    }
-
-    public void setProblemId(Integer problemId) {
-        this.problemId = problemId;
-    }
 
     public String getInputContent() {
         return inputContent;
@@ -69,9 +46,7 @@ public class ProblemExample implements Serializable {
 
     @Override
     public String toString() {
-        return "ProblemExample{" +
-                "problemExampleId=" + problemExampleId +
-                ", problemId=" + problemId +
+        return "ProblemExampleDO{" +
                 ", inputContent='" + inputContent + '\'' +
                 ", outputContent='" + outputContent + '\'' +
                 '}';

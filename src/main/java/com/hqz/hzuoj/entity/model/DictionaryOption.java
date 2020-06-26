@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class DictionaryOption implements Serializable {
     private static final long serialVersionUID = 694076427165072317L;
 
-    @ApiModelProperty("${column.comment}")
+    @ApiModelProperty("ID")
     private Integer id;
     /**
     * 字典码

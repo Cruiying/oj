@@ -85,6 +85,9 @@
             </if>
         </where>
     </select>
+    <select id="findProblemAcceptedTotal" resultType="java.lang.Integer">
+        select count(1) from submit where
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="submitId" useGeneratedKeys="true">

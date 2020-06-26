@@ -80,7 +80,7 @@ public class Problem implements Serializable {
     * 题目等级
     */
     @ApiModelProperty("题目等级")
-    private Integer levelCode;
+    private String levelCode;
     /**
     * 题目数据版本
     */
@@ -192,11 +192,11 @@ public class Problem implements Serializable {
         this.updateId = updateId;
     }
 
-    public Integer getLevelCode() {
+    public String getLevelCode() {
         return levelCode;
     }
 
-    public void setLevelCode(Integer levelCode) {
+    public void setLevelCode(String levelCode) {
         this.levelCode = levelCode;
     }
 
@@ -208,4 +208,24 @@ public class Problem implements Serializable {
         this.dataVersion = dataVersion;
     }
 
+    @Override
+    public String toString() {
+        return "Problem{" +
+                "problemId=" + problemId +
+                ", publicCode='" + publicCode + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", explain='" + explain + '\'' +
+                ", inputContent='" + inputContent + '\'' +
+                ", outputContent='" + outputContent + '\'' +
+                ", background='" + background + '\'' +
+                ", dataAddress='" + dataAddress + '\'' +
+                ", createId=" + createId +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", updateId=" + updateId +
+                ", levelCode='" + levelCode + '\'' +
+                ", dataVersion='" + dataVersion + '\'' +
+                '}';
+    }
 }

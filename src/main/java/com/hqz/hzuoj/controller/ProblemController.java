@@ -1,7 +1,10 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.model.Problem;
+import com.hqz.hzuoj.common.R;
+import com.hqz.hzuoj.entity.DO.ProblemListDO;
+import com.hqz.hzuoj.entity.VO.ProblemQueryVO;
 import com.hqz.hzuoj.service.ProblemService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,15 +24,17 @@ public class ProblemController {
     @Resource
     private ProblemService problemService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public Problem selectOne(Integer id) {
-        return this.problemService.queryById(id);
+
+    @RequestMapping(value = "{problemId}", method = RequestMethod.POST)
+    @ApiOperation("获取题目详情")
+    public R problem(@PathVariable Integer problemId) {
+        return R.ok("题目获取成功", problemService.findById(problemId));
     }
 
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @ApiOperation("获取题目列表")
+    public R problems(@RequestBody ProblemQueryVO problemQueryVO) {
+        return R.ok("题目列表获取成功", problemService.findProblems(problemQueryVO));
+    }
 }
