@@ -17,7 +17,7 @@ import java.util.List;
 @Service("languageService")
 public class LanguageServiceImpl implements LanguageService {
     @Resource
-    private LanguageMapper languageDao;
+    private LanguageMapper languageMapper;
 
     /**
      * 通过ID查询单条数据
@@ -27,7 +27,7 @@ public class LanguageServiceImpl implements LanguageService {
      */
     @Override
     public Language queryById(Integer languageId) {
-        return this.languageDao.queryById(languageId);
+        return this.languageMapper.queryById(languageId);
     }
 
     /**
@@ -39,7 +39,7 @@ public class LanguageServiceImpl implements LanguageService {
      */
     @Override
     public List<Language> queryAllByLimit(int offset, int limit) {
-        return this.languageDao.queryAllByLimit(offset, limit);
+        return this.languageMapper.queryAllByLimit(offset, limit);
     }
 
     /**
@@ -50,7 +50,7 @@ public class LanguageServiceImpl implements LanguageService {
      */
     @Override
     public Language insert(Language language) {
-        this.languageDao.insert(language);
+        this.languageMapper.insert(language);
         return language;
     }
 
@@ -62,7 +62,7 @@ public class LanguageServiceImpl implements LanguageService {
      */
     @Override
     public Language update(Language language) {
-        this.languageDao.update(language);
+        this.languageMapper.update(language);
         return this.queryById(language.getLanguageId());
     }
 
@@ -74,6 +74,15 @@ public class LanguageServiceImpl implements LanguageService {
      */
     @Override
     public boolean deleteById(Integer languageId) {
-        return this.languageDao.deleteById(languageId) > 0;
+        return this.languageMapper.deleteById(languageId) > 0;
+    }
+
+    /**
+     * 获取语言列表
+     * @return
+     */
+    @Override
+    public List<Language> findLanguages() {
+        return languageMapper.findLanguages();
     }
 }

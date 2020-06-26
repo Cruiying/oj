@@ -61,6 +61,10 @@
             </if>
         </where>
     </select>
+<!--    获取所有语言-->
+    <select id="findLanguages" resultType="com.hqz.hzuoj.entity.model.Language">
+        select language_id,mul_time,mul_memory,`name`,model from `language`
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="languageId" useGeneratedKeys="true">

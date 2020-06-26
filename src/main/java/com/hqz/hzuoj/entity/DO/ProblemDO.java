@@ -1,15 +1,10 @@
 package com.hqz.hzuoj.entity.DO;
 
-import com.hqz.hzuoj.entity.model.DictionaryOption;
-import com.hqz.hzuoj.entity.model.ProblemExample;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 
 @Data
 public class ProblemDO implements Serializable {
@@ -50,7 +45,7 @@ public class ProblemDO implements Serializable {
      * 题目样例
      */
     @ApiModelProperty("题目样例")
-    private List<ProblemExampleListDO> problemExamples;
+    private List<ProblemExampleListDO> examples;
     /**
      * 题目内存与时间限制
      */
@@ -114,12 +109,12 @@ public class ProblemDO implements Serializable {
         this.background = background;
     }
 
-    public List<ProblemExampleListDO> getProblemExamples() {
-        return problemExamples;
+    public List<ProblemExampleListDO> getExamples() {
+        return examples;
     }
 
-    public void setProblemExamples(List<ProblemExampleListDO> problemExamples) {
-        this.problemExamples = problemExamples;
+    public void setExamples(List<ProblemExampleListDO> examples) {
+        this.examples = examples;
     }
 
     public ProblemDataDO getProblemDataDO() {
@@ -140,7 +135,7 @@ public class ProblemDO implements Serializable {
                 ", inputContent='" + inputContent + '\'' +
                 ", outputContent='" + outputContent + '\'' +
                 ", background='" + background + '\'' +
-                ", problemExamples=" + problemExamples +
+                ", problemExamples=" + examples +
                 ", problemDataDO=" + problemDataDO +
                 '}';
     }

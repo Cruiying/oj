@@ -11,8 +11,6 @@ import com.hqz.hzuoj.entity.DO.ProblemExampleListDO;
 import com.hqz.hzuoj.entity.DO.ProblemListDO;
 import com.hqz.hzuoj.entity.VO.ProblemQueryVO;
 import com.hqz.hzuoj.entity.model.Problem;
-import com.hqz.hzuoj.entity.model.ProblemData;
-import com.hqz.hzuoj.entity.model.ProblemExample;
 import com.hqz.hzuoj.mapper.ProblemMapper;
 import com.hqz.hzuoj.service.*;
 import org.springframework.stereotype.Service;
@@ -114,7 +112,7 @@ public class ProblemServiceImpl implements ProblemService {
         //题目样例
         List<ProblemExampleListDO> problemExamples = problemExampleService.findProblemExamples(problemId);
         problemDO.setProblemDataDO(problemDataDO);
-        problemDO.setProblemExamples(problemExamples);
+        problemDO.setExamples(problemExamples);
         return problemConvertMarkDown(problemDO);
     }
 

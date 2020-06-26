@@ -4,11 +4,8 @@ import com.hqz.hzuoj.common.base.CurrentUser;
 import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +28,6 @@ public class UserViewController {
         } else {
             map.addAttribute("discussionId", discussionId);
         }
-
         return "user/d_editor";
     }
 
@@ -56,15 +52,17 @@ public class UserViewController {
         return "user/login";
     }
 
-    @RequestMapping(value = "problems", method = RequestMethod.GET)
+    @RequestMapping(value = "/problems", method = RequestMethod.GET)
     @ApiOperation("题目列表界面")
     public String problems() {
         return "user/problems";
     }
 
-    @RequestMapping(value = "problem", method = RequestMethod.GET)
+    @RequestMapping(value = "/problems/{problemId}", method = RequestMethod.GET)
     @ApiOperation("题目详情页面")
-    public String problem() {
+    public String problem(@PathVariable Integer problemId, Model map) {
+        map.addAttribute("problemId", problemId);
+        map.addAttribute("contestId", -1);
         return "user/problem";
     }
 }

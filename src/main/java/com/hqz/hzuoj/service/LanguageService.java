@@ -52,4 +52,9 @@ public interface LanguageService {
      */
     boolean deleteById(Integer languageId);
 
+    /**
+     * 获取语言列表
+     * @return
+     */
+    List<Language> findLanguages();
 }

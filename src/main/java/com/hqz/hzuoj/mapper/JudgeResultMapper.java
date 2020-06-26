@@ -62,4 +62,16 @@ public interface JudgeResultMapper {
      */
     int deleteById(Integer judgeResultId);
 
+    /**
+     * 获取所有测评结果
+     * @return
+     */
+    List<JudgeResult> findJudgeResults();
+
+    /**
+     * 根据测评名称查找测评结果
+     * @param judgeNameAbbr
+     * @return
+     */
+    JudgeResult findJudgeResultByJudgeNameAbbr(String judgeNameAbbr);
 }

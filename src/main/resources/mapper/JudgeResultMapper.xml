@@ -41,6 +41,14 @@
             </if>
         </where>
     </select>
+<!--    返回所有测评结果-->
+    <select id="findJudgeResults" resultType="com.hqz.hzuoj.entity.model.JudgeResult">
+        select judge_result_id, judge_name, judge_name_abbr from judge_result
+    </select>
+<!--    根据测评名称返回测评结果-->
+    <select id="findJudgeResultByJudgeNameAbbr" resultType="com.hqz.hzuoj.entity.model.JudgeResult">
+        select judge_result_id, judge_name, judge_name_abbr from judge_result where judge_name_abbr = #{judgeNameAbbr}
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="judgeResultId" useGeneratedKeys="true">
