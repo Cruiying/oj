@@ -1,6 +1,11 @@
 package com.hqz.hzuoj.service;
 
+import com.hqz.hzuoj.common.util.PageUtils;
+import com.hqz.hzuoj.entity.DO.SubmitDO;
+import com.hqz.hzuoj.entity.VO.SubmitListQueryVO;
 import com.hqz.hzuoj.entity.model.Submit;
+
+import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -58,4 +63,13 @@ public interface SubmitService {
      * @return
      */
     Integer findProblemAcceptedTotal(Integer problemId);
+
+    /**
+     * 获取提交测评列表
+     * @param submitListQueryVO
+     * @return
+     */
+    PageUtils findSubmits(SubmitListQueryVO submitListQueryVO);
+
+    SubmitDO findSubmit(Integer submitId);
 }

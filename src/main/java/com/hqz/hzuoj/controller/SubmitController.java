@@ -1,7 +1,10 @@
 package com.hqz.hzuoj.controller;
 
+import com.hqz.hzuoj.common.R;
+import com.hqz.hzuoj.entity.VO.SubmitListQueryVO;
 import com.hqz.hzuoj.entity.model.Submit;
 import com.hqz.hzuoj.service.SubmitService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -13,7 +16,7 @@ import javax.annotation.Resource;
  * @since 2020-06-22 21:17:32
  */
 @RestController
-@RequestMapping("submit")
+@RequestMapping("submits")
 public class SubmitController {
     /**
      * 服务对象
@@ -21,15 +24,16 @@ public class SubmitController {
     @Resource
     private SubmitService submitService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public Submit selectOne(Integer id) {
-        return this.submitService.queryById(id);
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    @ApiOperation("获取提交测评列表")
+    public R submits(@RequestBody SubmitListQueryVO submitListQueryVO) {
+        return R.ok("获取成功", submitService.findSubmits(submitListQueryVO));
+    }
+
+    @RequestMapping(value = "/{submitId}", method = RequestMethod.POST)
+    public R submit(@PathVariable Integer submitId) {
+        return R.ok("获取成功", submitService.findSubmit(submitId));
     }
 
 }

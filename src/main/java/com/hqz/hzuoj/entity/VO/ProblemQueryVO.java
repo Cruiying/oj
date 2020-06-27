@@ -36,5 +36,14 @@ public class ProblemQueryVO implements Serializable {
     @ApiModelProperty("等级")
     private String levelCode;
 
-
+    @Override
+    public String toString() {
+        return "ProblemQueryVO{" +
+                "title='" + title + '\'' +
+                ", pageSize=" + pageSize +
+                ", currPage=" + currPage +
+                ", tags='" + tags + '\'' +
+                ", levelCode='" + levelCode + '\'' +
+                '}';
+    }
 }

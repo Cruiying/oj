@@ -1,5 +1,6 @@
 package com.hqz.hzuoj.mapper;
 
+import com.hqz.hzuoj.entity.DO.SubmitDO;
 import com.hqz.hzuoj.entity.model.Submit;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -68,4 +69,11 @@ public interface SubmitMapper {
      * @return
      */
     Integer findProblemAcceptedTotal(Integer problemId);
+
+    /**
+     * 获取提交测评详细
+     * @param submitId
+     * @return
+     */
+    SubmitDO findSubmit(Integer submitId);
 }

@@ -88,6 +88,14 @@
     <select id="findProblemAcceptedTotal" resultType="java.lang.Integer">
         select count(1) from submit where
     </select>
+    <select id="findSubmit" resultType="com.hqz.hzuoj.entity.DO.SubmitDO">
+        select * from submit s
+        join problem p on s.problem_id = p.problem_id
+        join `language` l on s.language_id = l.language_id
+        join judge_result jr on s.judge_result_id = jr.judge_result_id
+        join `user` u on s.user_id = u.user_id
+        where s.submit_id = #{submitId}
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="submitId" useGeneratedKeys="true">

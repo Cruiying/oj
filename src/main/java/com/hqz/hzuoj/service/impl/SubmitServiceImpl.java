@@ -1,5 +1,9 @@
 package com.hqz.hzuoj.service.impl;
 
+import com.hqz.hzuoj.common.exception.MyException;
+import com.hqz.hzuoj.common.util.PageUtils;
+import com.hqz.hzuoj.entity.DO.SubmitDO;
+import com.hqz.hzuoj.entity.VO.SubmitListQueryVO;
 import com.hqz.hzuoj.entity.model.Submit;
 import com.hqz.hzuoj.mapper.SubmitMapper;
 import com.hqz.hzuoj.service.SubmitService;
@@ -85,5 +89,29 @@ public class SubmitServiceImpl implements SubmitService {
     @Override
     public Integer findProblemAcceptedTotal(Integer problemId) {
         return submitMapper.findProblemAcceptedTotal(problemId);
+    }
+
+    /**
+     * 获取提交测评列表
+     * @param submitListQueryVO
+     * @return
+     */
+    @Override
+    public PageUtils findSubmits(SubmitListQueryVO submitListQueryVO) {
+        return null;
+    }
+
+    /**
+     * 获取提交测评详情
+     * @param submitId
+     * @return
+     */
+    @Override
+    public SubmitDO findSubmit(Integer submitId) {
+        SubmitDO submit = submitMapper.findSubmit(submitId);
+        if (submit == null) {
+            throw new MyException("测评为空");
+        }
+        return submit;
     }
 }

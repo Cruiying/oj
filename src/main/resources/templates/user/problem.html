@@ -206,10 +206,8 @@
                                                 </div>
                                                 <div class="ui segment" v-if="testCode.testPoint != null">
                                                     <div class="sixteen wide column">
-                                                        运行时间：<span
-                                                            v-html="getRuntimeTime(testCode.testPoint.testPointTime)">0ms</span>
-                                                        运行内存：<span
-                                                            v-html="getRuntimeMemory(testCode.testPoint.testPointMemory)">0MB</span>
+                                                        运行时间：<span v-html="getRuntimeTime(testCode.testPoint.testPointTime)">0ms</span>
+                                                        运行内存：<span v-html="getRuntimeMemory(testCode.testPoint.testPointMemory)">0MB</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -318,7 +316,7 @@
             judgeResult: {
                 "judgeResultId": 1,
                 "judgeName": "queue",
-                "judgeNameAbbs": "queue",
+                "judgeNameAbbr": "queue",
             },
             flag: true,
             source: null,
@@ -332,7 +330,7 @@
                 axios.post("/languages")
                     .then((result)=>{
                     if (result.data["code"] === 200) {
-                        this.language = result.data["data"];
+                        this.languages = result.data["data"];
                         initEditor(this.languages[0].model);
                     } else {
 
@@ -415,20 +413,20 @@
                     this.source = null;
                 }
                 if (!!window.EventSource) {
-                    source = new EventSource("/test/" + testId + "/latest");
-                    source.addEventListener('message', function (e) {
+                    this.source = new EventSource("/test/" + testId + "/latest");
+                    this.source.addEventListener('message', function (e) {
                         const messageEvent = JSON.parse(e.data);
                         tmp.testCode = JSON.parse(messageEvent["judgeInfo"]);
-                        if (messageEvent["completed"] == true) {
-                            source.close();
-                            source = null;
+                        if (messageEvent["completed"] === true) {
+                            tmp.source.close();
+                            tmp.source = null;
                         }
                     });
-                    source.addEventListener('open', function (e) {
+                    this.source.addEventListener('open', function (e) {
                         console.log("Connection is open");
                     }, false);
 
-                    source.addEventListener('error', function (e) {
+                    this.source.addEventListener('error', function (e) {
                     }, false);
                 }
             },
@@ -497,6 +495,7 @@
                         }
                     })
                     .catch((error) => { // 错误的回调
+
                     })
             }
         },

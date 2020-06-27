@@ -2,6 +2,7 @@ package com.hqz.hzuoj.controller;
 
 import com.hqz.hzuoj.common.base.CurrentUser;
 import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
+import com.hqz.hzuoj.entity.VO.SubmitListQueryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -64,5 +65,20 @@ public class UserViewController {
         map.addAttribute("problemId", problemId);
         map.addAttribute("contestId", -1);
         return "user/problem";
+    }
+
+    @RequestMapping(value = "/submits", method = RequestMethod.GET)
+    @ApiOperation("提交列表页面")
+    public String submits(SubmitListQueryVO submitListQueryVO, Model map)  {
+        map.addAttribute("submitQuery", submitListQueryVO);
+        return "user/submits";
+    }
+
+    @RequestMapping(value = "/submits/{submitId}", method = RequestMethod.GET)
+    @ApiOperation("提交测评详情页面")
+    public String submit(@PathVariable Integer submitId, Model map) {
+        map.addAttribute("submitId", submitId);
+        map.addAttribute("contestId", -1);
+        return "user/submit";
     }
 }
