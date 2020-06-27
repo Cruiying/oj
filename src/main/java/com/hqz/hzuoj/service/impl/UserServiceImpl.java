@@ -1,5 +1,11 @@
 package com.hqz.hzuoj.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.hqz.hzuoj.common.util.PageUtils;
+import com.hqz.hzuoj.entity.DO.RankingUserDo;
+import com.hqz.hzuoj.entity.DTO.UserRankingDTO;
+import com.hqz.hzuoj.entity.VO.RankingQueryVO;
 import com.hqz.hzuoj.entity.model.User;
 import com.hqz.hzuoj.mapper.UserMapper;
 import com.hqz.hzuoj.service.UserService;
@@ -86,4 +92,28 @@ public class UserServiceImpl implements UserService {
     public User queryByUsername(String username) {
         return userMapper.queryByUsername(username);
     }
+
+    /**
+     * 获取用户排行榜
+     * @param rankingQueryVO
+     * @return
+     */
+    @Override
+    public PageUtils ranking(RankingQueryVO rankingQueryVO) {
+        PageHelper.startPage(rankingQueryVO.getCurrPage(), rankingQueryVO.getPageSize(), true);
+        List<RankingUserDo> users = userMapper.findRankingQuery(rankingQueryVO);
+        PageInfo<RankingUserDo> pageInfo = new PageInfo<>(users);
+        for (RankingUserDo rankingUser : pageInfo.getList()) {
+            Integer rank = userMapper.findGreaterUserCount(rankingQueryVO, rankingUser.getRating(), rankingUser.getAcceptedTotal());
+            rankingUser.setRank(rank);
+        }
+        return new PageUtils(pageInfo);
+    }
+
+    @Override
+    public Integer getUserRanking(UserRankingDTO userRankingDTO) {
+        return null;
+    }
+
+
 }

@@ -1,7 +1,11 @@
 package com.hqz.hzuoj.mapper;
 
+import com.hqz.hzuoj.entity.DO.RankingUserDo;
+import com.hqz.hzuoj.entity.VO.RankingQueryVO;
 import com.hqz.hzuoj.entity.model.User;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import java.util.List;
 
 /**
@@ -68,4 +72,18 @@ public interface UserMapper {
      * @return
      */
     User queryByUsername(String username);
+
+    /**
+     * 查询用户
+     * @param rankingQueryVO
+     * @return
+     */
+    List<RankingUserDo> findRankingQuery(RankingQueryVO rankingQueryVO);
+
+    /**
+     * 查找用户排名
+     * @param rating
+     * @return
+     */
+    Integer findGreaterUserCount(@Param("rankingQuery") RankingQueryVO rankingQueryVO, @Param("rating") Integer rating, @Param("acceptedTotal") Integer acceptedTotal);
 }

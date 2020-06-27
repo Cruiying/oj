@@ -2,6 +2,7 @@ package com.hqz.hzuoj.controller;
 
 import com.hqz.hzuoj.common.base.CurrentUser;
 import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
+import com.hqz.hzuoj.entity.VO.RankingQueryVO;
 import com.hqz.hzuoj.entity.VO.SubmitListQueryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -80,5 +81,12 @@ public class UserViewController {
         map.addAttribute("submitId", submitId);
         map.addAttribute("contestId", -1);
         return "user/submit";
+    }
+
+    @RequestMapping(value = "/ranking", method = RequestMethod.GET)
+    @ApiOperation("排行榜")
+    public String ranking(RankingQueryVO rankingQueryVO, Model map) {
+        map.addAttribute("rankingQuery", rankingQueryVO);
+        return "user/ranking";
     }
 }

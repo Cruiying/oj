@@ -89,6 +89,32 @@
     <select id="queryByUsername" resultType="com.hqz.hzuoj.entity.model.User">
         select * from `user` where username = #{username}
     </select>
+<!--    查找用户信息-->
+    <select id="findRankingQuery" resultType="com.hqz.hzuoj.entity.DO.RankingUserDo">
+        select * from `user` u
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="indistinct != null">
+                and (username like concat('%', #{indistinct}, '%') or school like concat('%', #{indistinct}, '%'))
+            </if>
+        </where>
+        order by #{order}
+    </select>
+    <select id="findGreaterUserCount" resultType="java.lang.Integer">
+        select count(1) from  `user` u
+        <where>
+            <if test="rankingQuery.type">
+
+            </if>
+            <if test="rankingQuery.type">
+
+            </if>
+        </where>
+    </select>
+    <!--    查找用户排名-->
+
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="userId" useGeneratedKeys="true">

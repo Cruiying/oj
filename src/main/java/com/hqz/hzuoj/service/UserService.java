@@ -1,5 +1,8 @@
 package com.hqz.hzuoj.service;
 
+import com.hqz.hzuoj.common.util.PageUtils;
+import com.hqz.hzuoj.entity.DTO.UserRankingDTO;
+import com.hqz.hzuoj.entity.VO.RankingQueryVO;
 import com.hqz.hzuoj.entity.model.User;
 import java.util.List;
 
@@ -58,4 +61,18 @@ public interface UserService {
      * @return
      */
     User queryByUsername(String username);
+
+    /**
+     * 获取用户排行榜
+     * @param rankingQueryVO
+     * @return
+     */
+    PageUtils ranking(RankingQueryVO rankingQueryVO);
+
+    /**
+     * 查询用户排名
+     * @param userRankingDTO
+     * @return
+     */
+    Integer getUserRanking(UserRankingDTO userRankingDTO);
 }
