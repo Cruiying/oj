@@ -112,6 +112,16 @@ public class SubmitDO implements Serializable {
      */
     @ApiModelProperty("题目标题")
     private String title;
+    /**
+     * 公开类型
+     */
+    @ApiModelProperty("公开类型")
+    private Integer publicCode;
+    /**
+     * 提交类型
+     */
+    @ApiModelProperty("提交类型")
+    private Integer type;
 
     public Integer getSubmitId() {
         return submitId;
@@ -257,6 +267,22 @@ public class SubmitDO implements Serializable {
         this.title = title;
     }
 
+    public Integer getPublicCode() {
+        return publicCode;
+    }
+
+    public void setPublicCode(Integer publicCode) {
+        this.publicCode = publicCode;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "SubmitDO{" +
@@ -278,6 +304,8 @@ public class SubmitDO implements Serializable {
                 ", rating=" + rating +
                 ", problemId=" + problemId +
                 ", title='" + title + '\'' +
+                ", publicCode=" + publicCode +
+                ", type=" + type +
                 '}';
     }
 }

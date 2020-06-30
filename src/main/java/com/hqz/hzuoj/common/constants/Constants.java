@@ -42,11 +42,11 @@ public class Constants {
         /** 公开类型 */
         public interface Public {
             /** 管理员 **/
-            final int ADMIN = -1;
+            final Integer ADMIN = -1;
             /** 公开 **/
-            final int PUBLIC = 0;
+            final Integer PUBLIC = 0;
             /** 比赛 **/
-            final int CONTEST = 1;
+            final Integer CONTEST = 1;
         }
     }
 
@@ -67,70 +67,70 @@ public class Constants {
         /** 比赛状态 **/
         public interface Status {
             /** 未开始 **/
-            final int NOT_START = -1;
+            final Integer NOT_START = -1;
             /** 进行中 **/
-            final int START = 0;
+            final Integer START = 0;
             /** 已结束 **/
-            final int END = 1;
+            final Integer END = 1;
         }
         /** 比赛公开类型  **/
         public interface Public {
             /** 私有比赛（需要密码可访问） **/
-            final int PRIVATE = 0;
+            final Integer PRIVATE = 0;
             /** 公开比赛（任何人都可以报名） **/
-            final int PUBLIC = 1;
+            final Integer PUBLIC = 1;
             /** 管理员才能访问看见 **/
-            final int ADMIN = -1;
+            final Integer ADMIN = -1;
         }
         /** 比赛报名状态 **/
         public interface Register {
             /** 报名未开始 **/
-            final int NOT_START = -1;
+            final Integer NOT_START = -1;
             /** 报名中 **/
-            final int START = 0;
+            final Integer START = 0;
             /** 已经结束 **/
-            final int END = 1;
+            final Integer END = 1;
         }
         /** 比赛Rating计算状态 **/
         public interface Rating {
             /** 未开始 **/
-            final int NOT_START = -1;
+            final Integer NOT_START = -1;
             /** 计算中 **/
-            final int START = 0;
+            final Integer START = 0;
             /** 计算完成 **/
-            final int END = 1;
+            final Integer END = 1;
         }
         /** 比赛排名状态 **/
         public interface Rank {
             /** 未开始 **/
-            final int NOT_START = -1;
+            final Integer NOT_START = -1;
             /** 计算中 **/
-            final int START = 0;
+            final Integer START = 0;
             /** 计算完成 **/
-            final int END = 1;
+            final Integer END = 1;
         }
         /** 比赛是否计算Rating **/
         public interface IsRating {
             /** 计算 **/
-            int YES = 1;
+            final Integer YES = 1;
             /** 不计算 **/
-            int NO = 0;
+            final Integer NO = 0;
         }
         /** 比赛排名是否封榜 **/
         public interface IsRank {
             /** 封榜 **/
-            final int YES = 1;
+            final Integer YES = 1;
             /** 不封榜 **/
-            final int NO = 0;
+            final Integer NO = 0;
         }
     }
     public static class Discussion {
         /** 讨论置顶状态 **/
         public interface Top {
             /** 置顶 **/
-            final int YES = 1;
+            final Integer YES = 1;
             /** 不置顶 **/
-            final int NO = 0;
+            final Integer NO = 0;
         }
     }
 
@@ -138,27 +138,27 @@ public class Constants {
         /** 题解审核状态 **/
         public interface Status {
             /** 未开始 **/
-            final int NOT_START = -1;
+            final Integer NOT_START = -1;
             /** 进行中 **/
-            final int START = 0;
+            final Integer START = 0;
             /** 已结束 **/
-            final int END = 1;
+            final Integer END = 1;
         }
     }
 
     public static class Submit {
         /** 用户查看测评类型 **/
         public interface Public {
-            final int PRIVATE = 0;
-            final int PUBLIC = 1;
-            final int CONTENT = 2;
+            final Integer PRIVATE = 0;
+            final Integer PUBLIC = 1;
+            final Integer CONTENT = 2;
         }
         /** 用户提交测评类型 **/
         public interface Type {
             /** 题库中提交 **/
-            final int PROBLEM = 0;
+            final Integer PROBLEM = 0;
             /** 比赛中提交 **/
-            final int CONTENT = 1;
+            final Integer CONTENT = 1;
         }
     }
 

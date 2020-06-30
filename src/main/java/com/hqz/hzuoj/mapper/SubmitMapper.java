@@ -1,6 +1,7 @@
 package com.hqz.hzuoj.mapper;
 
 import com.hqz.hzuoj.entity.DO.SubmitDO;
+import com.hqz.hzuoj.entity.VO.SubmitQueryVO;
 import com.hqz.hzuoj.entity.model.Submit;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -76,4 +77,17 @@ public interface SubmitMapper {
      * @return
      */
     SubmitDO findSubmit(Integer submitId);
+
+    /**
+     * 保存测评记录
+     * @param submit
+     */
+    void saveSubmit(Submit submit);
+
+    /**
+     * 获取测评列表
+     * @param submitQueryVO
+     * @return
+     */
+    List<SubmitDO> findSubmits(SubmitQueryVO submitQueryVO);
 }

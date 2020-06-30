@@ -2,10 +2,9 @@ package com.hqz.hzuoj.service;
 
 import com.hqz.hzuoj.common.util.PageUtils;
 import com.hqz.hzuoj.entity.DO.SubmitDO;
-import com.hqz.hzuoj.entity.VO.SubmitListQueryVO;
+import com.hqz.hzuoj.entity.VO.SubmitQueryVO;
 import com.hqz.hzuoj.entity.model.Submit;
 
-import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -66,10 +65,22 @@ public interface SubmitService {
 
     /**
      * 获取提交测评列表
-     * @param submitListQueryVO
+     * @param submitQueryVO
      * @return
      */
-    PageUtils findSubmits(SubmitListQueryVO submitListQueryVO);
+    PageUtils findSubmits(SubmitQueryVO submitQueryVO);
 
+    /**
+     * 根据提交测评Id获取信息
+     * @param submitId
+     * @return
+     */
     SubmitDO findSubmit(Integer submitId);
+
+    /**
+     * 保存测评记录
+     * @param submit
+     * @return
+     */
+    Integer saveSubmit(Submit submit);
 }

@@ -3,7 +3,7 @@ package com.hqz.hzuoj.controller;
 import com.hqz.hzuoj.common.base.CurrentUser;
 import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
 import com.hqz.hzuoj.entity.VO.RankingQueryVO;
-import com.hqz.hzuoj.entity.VO.SubmitListQueryVO;
+import com.hqz.hzuoj.entity.VO.SubmitQueryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -70,7 +70,7 @@ public class UserViewController {
 
     @RequestMapping(value = "/submits", method = RequestMethod.GET)
     @ApiOperation("提交列表页面")
-    public String submits(SubmitListQueryVO submitListQueryVO, Model map)  {
+    public String submits(SubmitQueryVO submitListQueryVO, Model map)  {
         map.addAttribute("submitQuery", submitListQueryVO);
         return "user/submits";
     }

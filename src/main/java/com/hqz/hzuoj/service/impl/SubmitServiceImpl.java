@@ -1,13 +1,20 @@
 package com.hqz.hzuoj.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.hqz.hzuoj.common.base.CurrentUser;
 import com.hqz.hzuoj.common.exception.MyException;
 import com.hqz.hzuoj.common.util.PageUtils;
+import com.hqz.hzuoj.entity.DO.ProblemDO;
 import com.hqz.hzuoj.entity.DO.SubmitDO;
-import com.hqz.hzuoj.entity.VO.SubmitListQueryVO;
+import com.hqz.hzuoj.entity.VO.SubmitQueryVO;
 import com.hqz.hzuoj.entity.model.Submit;
 import com.hqz.hzuoj.mapper.SubmitMapper;
+import com.hqz.hzuoj.service.ProblemService;
 import com.hqz.hzuoj.service.SubmitService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -22,6 +29,9 @@ import java.util.List;
 public class SubmitServiceImpl implements SubmitService {
     @Resource
     private SubmitMapper submitMapper;
+
+    @Resource
+    private ProblemService problemService;
 
     /**
      * 通过ID查询单条数据
@@ -93,12 +103,15 @@ public class SubmitServiceImpl implements SubmitService {
 
     /**
      * 获取提交测评列表
-     * @param submitListQueryVO
+     * @param submitQueryVO
      * @return
      */
     @Override
-    public PageUtils findSubmits(SubmitListQueryVO submitListQueryVO) {
-        return null;
+    public PageUtils findSubmits(SubmitQueryVO submitQueryVO) {
+        PageHelper.startPage(submitQueryVO.getCurrPage(), submitQueryVO.getPageSize(), true);
+        List<SubmitDO> list = submitMapper.findSubmits(submitQueryVO);
+        PageInfo<SubmitDO> pageInfo = new PageInfo<>(list);
+        return new PageUtils(pageInfo);
     }
 
     /**
@@ -113,5 +126,23 @@ public class SubmitServiceImpl implements SubmitService {
             throw new MyException("测评为空");
         }
         return submit;
+    }
+
+    /**
+     * 保存测评记录
+     * @param submit
+     * @return
+     */
+    @Override
+    @Transactional
+    public Integer saveSubmit(Submit submit) {
+        ProblemDO problem = problemService.findById(submit.getProblemId());
+        if (problem == null) {
+            throw new MyException("题目不存在");
+        }
+        Integer userId = CurrentUser.getUserId();
+        submit.setUserId(userId);
+        submitMapper.saveSubmit(submit);
+        return submit.getSubmitId();
     }
 }

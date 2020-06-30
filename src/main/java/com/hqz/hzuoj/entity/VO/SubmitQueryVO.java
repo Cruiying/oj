@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @ApiModel("提交测评列表搜索")
-public class SubmitListQueryVO implements Serializable {
+public class SubmitQueryVO implements Serializable {
 
     /**
      * 每页记录数
@@ -20,6 +20,12 @@ public class SubmitListQueryVO implements Serializable {
      */
     @ApiModelProperty("当前页数")
     private Integer currPage = 1;
+
+    /**
+     * 测评Id
+     */
+    @ApiModelProperty("测评Id")
+    private Integer submitId;
 
     /**
      * 题目标题
@@ -56,6 +62,18 @@ public class SubmitListQueryVO implements Serializable {
      */
     @ApiModelProperty("题目Id")
     private Integer problemId;
+
+    /**
+     * 查看类型
+     */
+    @ApiModelProperty("查看类型")
+    private Integer publicCode;
+
+    /**
+     * 提交类型
+     */
+    @ApiModelProperty("提交类型")
+    private Integer type;
 
 
     public String getTitle() {
@@ -122,17 +140,45 @@ public class SubmitListQueryVO implements Serializable {
         this.currPage = currPage;
     }
 
+
+    public Integer getSubmitId() {
+        return submitId;
+    }
+
+    public void setSubmitId(Integer submitId) {
+        this.submitId = submitId;
+    }
+
+    public Integer getPublicCode() {
+        return publicCode;
+    }
+
+    public void setPublicCode(Integer publicCode) {
+        this.publicCode = publicCode;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "SubmitListQueryVO{" +
                 "pageSize=" + pageSize +
                 ", currPage=" + currPage +
+                ", submitId=" + submitId +
                 ", title='" + title + '\'' +
                 ", judgeResultId=" + judgeResultId +
                 ", languageId=" + languageId +
                 ", userId=" + userId +
                 ", username='" + username + '\'' +
                 ", problemId=" + problemId +
+                ", publicCode=" + publicCode +
+                ", type=" + type +
                 '}';
     }
 }

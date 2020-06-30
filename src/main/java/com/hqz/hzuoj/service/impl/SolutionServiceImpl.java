@@ -1,5 +1,7 @@
 package com.hqz.hzuoj.service.impl;
 
+import com.hqz.hzuoj.common.util.PageUtils;
+import com.hqz.hzuoj.entity.VO.SolutionQueryVO;
 import com.hqz.hzuoj.entity.model.Solution;
 import com.hqz.hzuoj.mapper.SolutionMapper;
 import com.hqz.hzuoj.service.SolutionService;
@@ -17,7 +19,7 @@ import java.util.List;
 @Service("solutionService")
 public class SolutionServiceImpl implements SolutionService {
     @Resource
-    private SolutionMapper solutionDao;
+    private SolutionMapper solutionMapper;
 
     /**
      * 通过ID查询单条数据
@@ -27,7 +29,7 @@ public class SolutionServiceImpl implements SolutionService {
      */
     @Override
     public Solution queryById(Integer solutionId) {
-        return this.solutionDao.queryById(solutionId);
+        return this.solutionMapper.queryById(solutionId);
     }
 
     /**
@@ -39,7 +41,7 @@ public class SolutionServiceImpl implements SolutionService {
      */
     @Override
     public List<Solution> queryAllByLimit(int offset, int limit) {
-        return this.solutionDao.queryAllByLimit(offset, limit);
+        return this.solutionMapper.queryAllByLimit(offset, limit);
     }
 
     /**
@@ -50,7 +52,7 @@ public class SolutionServiceImpl implements SolutionService {
      */
     @Override
     public Solution insert(Solution solution) {
-        this.solutionDao.insert(solution);
+        this.solutionMapper.insert(solution);
         return solution;
     }
 
@@ -62,7 +64,7 @@ public class SolutionServiceImpl implements SolutionService {
      */
     @Override
     public Solution update(Solution solution) {
-        this.solutionDao.update(solution);
+        this.solutionMapper.update(solution);
         return this.queryById(solution.getSolutionId());
     }
 
@@ -74,6 +76,16 @@ public class SolutionServiceImpl implements SolutionService {
      */
     @Override
     public boolean deleteById(Integer solutionId) {
-        return this.solutionDao.deleteById(solutionId) > 0;
+        return this.solutionMapper.deleteById(solutionId) > 0;
+    }
+
+    /**
+     *
+     * @param solutionQueryVO
+     * @return
+     */
+    @Override
+    public PageUtils findSolutions(SolutionQueryVO solutionQueryVO) {
+        return null;
     }
 }

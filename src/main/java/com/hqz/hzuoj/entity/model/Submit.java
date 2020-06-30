@@ -1,6 +1,7 @@
 package com.hqz.hzuoj.entity.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @author Cruiying
  * @since 2020-06-22 21:17:32
  */
+@Data
 public class Submit implements Serializable {
     private static final long serialVersionUID = -49619821184281830L;
 
@@ -55,7 +57,7 @@ public class Submit implements Serializable {
     * 用户可见类型
     */
     @ApiModelProperty("用户可见类型")
-    private String publicCode;
+    private Integer publicCode;
     /**
     * 测评结果
     */
@@ -80,7 +82,7 @@ public class Submit implements Serializable {
     * 提交类型
     */
     @ApiModelProperty("提交类型")
-    private String submitType;
+    private Integer submitType;
 
 
     public Integer getSubmitId() {
@@ -147,11 +149,11 @@ public class Submit implements Serializable {
         this.codeLength = codeLength;
     }
 
-    public String getPublicCode() {
+    public Integer getPublicCode() {
         return publicCode;
     }
 
-    public void setPublicCode(String publicCode) {
+    public void setPublicCode(Integer publicCode) {
         this.publicCode = publicCode;
     }
 
@@ -187,12 +189,31 @@ public class Submit implements Serializable {
         this.runtimeMemory = runtimeMemory;
     }
 
-    public String getSubmitType() {
+    public Integer getSubmitType() {
         return submitType;
     }
 
-    public void setSubmitType(String submitType) {
+    public void setSubmitType(Integer submitType) {
         this.submitType = submitType;
     }
 
+    @Override
+    public String toString() {
+        return "Submit{" +
+                "submitId=" + submitId +
+                ", problemId=" + problemId +
+                ", userId=" + userId +
+                ", submitTime=" + submitTime +
+                ", code='" + code + '\'' +
+                ", compileInfo='" + compileInfo + '\'' +
+                ", languageId=" + languageId +
+                ", codeLength=" + codeLength +
+                ", publicCode=" + publicCode +
+                ", judgeResultId=" + judgeResultId +
+                ", score=" + score +
+                ", runtimeTime=" + runtimeTime +
+                ", runtimeMemory=" + runtimeMemory +
+                ", submitType=" + submitType +
+                '}';
+    }
 }

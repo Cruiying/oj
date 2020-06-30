@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  * SysLoginController
@@ -59,7 +60,6 @@ public class SysLoginController extends CurrentUser {
         System.err.println(uuid);
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
-
         //获取图片验证码
         BufferedImage image = sysCaptchaService.getCaptcha(uuid);
 
