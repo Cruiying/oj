@@ -100,6 +100,11 @@ public class ProblemServiceImpl implements ProblemService {
         return this.problemMapper.deleteById(problemId) > 0;
     }
 
+    /**
+     * 获取题目详情
+     * @param problemId
+     * @return
+     */
     @Override
     public ProblemDO findById(Integer problemId) {
         //题目数据
