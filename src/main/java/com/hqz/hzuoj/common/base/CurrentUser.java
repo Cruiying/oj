@@ -26,4 +26,9 @@ public class CurrentUser {
         }
         return user.getUserId();
     }
+
+    public static boolean UserIsLogin() {
+        User user = getUser();
+        return (user != null);
+    }
 }
