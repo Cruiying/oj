@@ -53,7 +53,7 @@
     <div class="ui" style="background-image: url('/img/banner.jpg'); height: 150px;">
         <div class="ui container" style="padding-left: 9%; float: left">
             <div class="ui middle container" style="">
-                <h1 style="color: white; font-size: 32px; line-height: 150px;" th:text="${'P' + problem.problemId +' ' + problem.problemTitle + ' 题解'}">P5850 calc加强版 题解</h1>
+                <h1 style="color: white; font-size: 32px; line-height: 150px;" v-text="'P' + problem.problemId + ' ' + problem.title + ' 题解'">P5850 calc加强版 题解</h1>
             </div>
         </div>
     </div>
@@ -67,15 +67,12 @@
                             <div><p style="margin-top: 1.6rem;font-size: 16px;color: rgba(0, 0, 0, .85);">
                                 抄袭、复制题解，以达到刷AC率/AC数量或其他目的的行为。</p></div>
                             <div style="margin-top: 1.6rem; text-align: right">
-                                <a th:href="@{'/problem/solution/editor/' + ${problemId}}" class="ui teal button"
-                                   style="background-color: #22ae90; ">我要写题解</a>
+                                <a :href="'/solution/' + problemId + '/editor'"  class="ui teal button" style="background-color: #22ae90; ">我要写题解</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="solution">
-
-                </div>
+                <div id="solution"> </div>
                 <div class="sixteen wide column" style="margin: 25px 0 25px 0"
                      th:if="${pageInfo==null||pageInfo.list==null || pageInfo.list.size()==0 }">
                     <div class="ui segment">
@@ -126,16 +123,29 @@
         data: {
             problemId: [[${problemId}]],
             pageInfo: null,
+            problem: null,
             page: null
         },
         methods: {
             initSolutions() {
-                if (problemId == null || this.problemId === -1) return null;
+                if (this.problemId == null || this.problemId === -1) return null;
                 axios.post("/solution/list", {"problemId": this.problemId}).then((result)=>{
                     if (result.data["code"] === 200) {
                         this.pageInfo = result.data["data"];
                         this.page = common.getPage(this.pageInfo.currPage, this.pageInfo.totalPage);
                     }
+                }).catch((error)=>{
+
+                })
+            },
+            initProblem() {
+                if (this.problemId == null || this.problemId === -1) return null;
+                axios.post("/problem/" + this.problemId).then((result)=>{
+                    if (result.data["code"] === 200) {
+                        this.problem = result.data["data"];
+                    }
+                }).catch((error)=>{
+
                 })
             },
             getUserRatingColor(username, rating) {
@@ -147,6 +157,7 @@
         },
         created() {
             this.initSolutions();
+            this.initProblem();
         }
     })
 </script>
