@@ -125,7 +125,6 @@
              * 保存或更新
              */
             saveOrUpdateDiscussion() {
-                this.showErrorMessage('系统错误');
                 axios.post("/discussion/saveOrUpdate", this.discussion)
                     .then((result) => {
                         console.log(result.data);

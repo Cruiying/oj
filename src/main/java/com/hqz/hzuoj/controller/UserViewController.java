@@ -5,13 +5,19 @@ import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
 import com.hqz.hzuoj.entity.VO.RankingQueryVO;
 import com.hqz.hzuoj.entity.VO.SubmitQueryVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * @author Cruiying
+ * @date
+ */
 @Controller
 @Api("用户界面页面显示")
 public class UserViewController {
@@ -89,4 +95,58 @@ public class UserViewController {
         map.addAttribute("rankingQuery", rankingQueryVO);
         return "user/ranking";
     }
+
+    @RequestMapping(value = "/solution/{problemId}/editor", method = RequestMethod.GET)
+    @ApiOperation("题解编辑页面")
+    public String solutionEditor(@PathVariable Integer problemId, Integer solutionId, Model map) {
+        map.addAttribute("problemId", problemId);
+        if (solutionId == null) {
+            map.addAttribute("solutionId", -1);
+        } else {
+            map.addAttribute("solutionId", solutionId);
+        }
+        return "user/s_editor";
+    }
+
+    @RequestMapping(value = "/solution/{solutionId}", method = RequestMethod.GET)
+    @ApiOperation("题解详情页面")
+    public String solution(@PathVariable Integer solutionId, Model map) {
+        map.addAttribute("solutionId", solutionId);
+        return "user/solution";
+    }
+
+    @RequestMapping(value = "/solutions/{problemId}", method = RequestMethod.GET)
+    @ApiOperation("题目题解列表页面")
+    public String solutions(@PathVariable Integer problemId, Model map) {
+        map.addAttribute("problemId", problemId);
+        return "user/solutions";
+    }
+
+
+    @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
+    @ApiOperation("用户详情页面")
+    public String user(@PathVariable Integer userId, Model map) {
+        map.addAttribute("userId", userId);
+        return "user/user";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @ApiOperation("用户注册界面")
+    public String register() {
+        return "user/register";
+    }
+
+    @RequestMapping(value = "/contests", method = RequestMethod.GET)
+    @ApiOperation("比赛列表界面")
+    public String contests() {
+        return "user/contests";
+    }
+
+    @RequestMapping(value = "/contests/{contestId}", method = RequestMethod.GET)
+    @ApiOperation("比赛详情页面")
+    public String contest(@PathVariable Integer contestId, Model map) {
+        map.addAttribute("contestId", contestId);
+        return "user/contest";
+    }
+
 }
