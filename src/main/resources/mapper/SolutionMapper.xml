@@ -61,6 +61,28 @@
             </if>
         </where>
     </select>
+    <select id="findSolutions" resultType="com.hqz.hzuoj.entity.DO.SolutionDo">
+        select * from solution s
+        join `user` u on s.user_id = u.user_id
+        join problem p on s.problem_id = p.problem_id
+        <where>
+            1 = 1
+            <if test="solutionId != null">
+                and s.solution_id = #{solutionId}
+            </if>
+            <if test="problemId != null">
+                and s.problem_id = #{problemId}
+            </if>
+            <if test="userId != null">
+                and s.user_id = #{userId}
+            </if>
+            and s.statuc_code = #{status}
+        </where>
+    </select>
+<!--    获取题解详情-->
+    <select id="findSolution" resultType="com.hqz.hzuoj.entity.model.Solution">
+        select * from solution where solution_id = #{solutionId}
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="solutionId" useGeneratedKeys="true">

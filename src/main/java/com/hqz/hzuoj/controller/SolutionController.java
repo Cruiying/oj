@@ -1,6 +1,7 @@
 package com.hqz.hzuoj.controller;
 
 import com.hqz.hzuoj.common.R;
+import com.hqz.hzuoj.common.base.CurrentUser;
 import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
 import com.hqz.hzuoj.entity.VO.SolutionQueryVO;
 import com.hqz.hzuoj.entity.model.Discussion;
@@ -46,6 +47,6 @@ public class SolutionController {
     @RequestMapping(value = "/{problemId}/{solutionId}", method = RequestMethod.POST)
     @ApiOperation("获取题解详情")
     public R querySolution(@PathVariable Integer problemId, @PathVariable Integer solutionId) {
-        return R.ok("获取成功");
+        return R.ok("获取成功", solutionService.findSolution(solutionId));
     }
 }

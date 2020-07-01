@@ -60,4 +60,11 @@ public interface SolutionService {
      * @return
      */
     PageUtils findSolutions(SolutionQueryVO solutionQueryVO);
+
+    /**
+     * 获取题解详情
+     * @param solutionId
+     * @return
+     */
+    Solution findSolution(Integer solutionId);
 }
