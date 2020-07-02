@@ -86,7 +86,27 @@
         </where>
     </select>
     <select id="findProblemAcceptedTotal" resultType="java.lang.Integer">
-        select count(1) from submit where
+        select count(1) from submit s
+        <where>
+            1 = 1
+            <if test="submitId != null">
+                and s.submit_id = #{submitId}
+            </if>
+            <if test="judgeResultId != null">
+                and s.judge_result_id = #{judgeResultId}
+            </if>
+            <if test="languageId != null">
+                and s.language_id = #{languageId}
+            </if>
+            <if test="userId != null">
+                and s.user_id = #{userId}
+            </if>
+            <if test="problemId != null">
+                and s.problem_id = #{problemId}
+            </if>
+            and s.public_code = #{publicCode}
+            and s.submit_type = #{type}
+        </where>
     </select>
     <select id="findSubmit" resultType="com.hqz.hzuoj.entity.DO.SubmitDO">
         select * from submit s
@@ -124,6 +144,52 @@
             </if>
             <if test="title != null">
                 and p.title like concat('%', #{title}, '%')
+            </if>
+            and s.public_code = #{publicCode}
+            and s.submit_type = #{type}
+        </where>
+    </select>
+    <select id="findProblemSubmitTotal" resultType="java.lang.Integer">
+        select count(1) from submit s
+        <where>
+            1 = 1
+            <if test="submitId != null">
+                and s.submit_id = #{submitId}
+            </if>
+            <if test="judgeResultId != null">
+                and s.judge_result_id = #{judgeResultId}
+            </if>
+            <if test="languageId != null">
+                and s.language_id = #{languageId}
+            </if>
+            <if test="userId != null">
+                and s.user_id = #{userId}
+            </if>
+            <if test="problemId != null">
+                and s.problem_id = #{problemId}
+            </if>
+            and s.public_code = #{publicCode}
+            and s.submit_type = #{type}
+        </where>
+    </select>
+    <select id="findProblemSubmit" resultType="java.lang.Integer">
+        select count(1) from submit s
+        <where>
+            1 = 1
+            <if test="submitId != null">
+                and s.submit_id = #{submitId}
+            </if>
+            <if test="judgeResultId != null">
+                and s.judge_result_id = #{judgeResultId}
+            </if>
+            <if test="languageId != null">
+                and s.language_id = #{languageId}
+            </if>
+            <if test="userId != null">
+                and s.user_id = #{userId}
+            </if>
+            <if test="problemId != null">
+                and s.problem_id = #{problemId}
             </if>
             and s.public_code = #{publicCode}
             and s.submit_type = #{type}

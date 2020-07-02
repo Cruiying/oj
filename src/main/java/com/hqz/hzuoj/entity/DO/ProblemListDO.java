@@ -24,6 +24,13 @@ public class ProblemListDO implements Serializable {
      */
     @ApiModelProperty("是否通过")
     private Boolean accepted;
+
+    /**
+     * 是否提交
+     */
+    @ApiModelProperty("是否提交")
+    private Boolean submit;
+
     /**
      * 通过数量
      */
@@ -116,12 +123,21 @@ public class ProblemListDO implements Serializable {
         this.tags = tags;
     }
 
+    public Boolean getSubmit() {
+        return submit;
+    }
+
+    public void setSubmit(Boolean submit) {
+        this.submit = submit;
+    }
+
     @Override
     public String toString() {
         return "ProblemListDO{" +
                 "problemId=" + problemId +
                 ", title='" + title + '\'' +
                 ", accepted=" + accepted +
+                ", submit=" + submit +
                 ", acceptedTotal=" + acceptedTotal +
                 ", submitTotal=" + submitTotal +
                 ", levelCode='" + levelCode + '\'' +

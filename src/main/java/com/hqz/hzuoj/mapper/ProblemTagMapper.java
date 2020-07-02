@@ -1,5 +1,6 @@
 package com.hqz.hzuoj.mapper;
 
+import com.hqz.hzuoj.entity.DO.TagDO;
 import com.hqz.hzuoj.entity.model.ProblemTag;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -62,4 +63,10 @@ public interface ProblemTagMapper {
      */
     int deleteById(Integer problemTagId);
 
+    /**
+     * 获取题目标签
+     * @param problemId
+     * @return
+     */
+    List<TagDO> findProblemTags(Integer problemId);
 }

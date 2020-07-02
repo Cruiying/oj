@@ -96,8 +96,8 @@
 <!--    获取题目列表-->
     <select id="findProblems" resultType="com.hqz.hzuoj.entity.DO.ProblemListDO">
         select * from problem p
-        join problem_tag pt on p.problem_id = pt.problem_id
-        join dictionary_option dic_o1 on dic_o1.option_code = p.level_code
+        left join problem_tag pt on p.problem_id = pt.problem_id
+        left join dictionary_option dict on dict.option_code = p.level_code
         <where>
             1 = 1
             <if test="levelCode != null">

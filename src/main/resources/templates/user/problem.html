@@ -92,7 +92,7 @@
             </div>
         </div>
         <!--        题目样例-->
-        <div class="row">
+        <div class="row" v-if="problem != null && problem.examples != null">
             <div class="column">
                 <h4 class="ui top attached block header">样例</h4>
                 <div class="ui bottom attached segment font-content">

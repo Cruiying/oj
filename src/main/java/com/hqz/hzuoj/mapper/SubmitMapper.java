@@ -66,10 +66,10 @@ public interface SubmitMapper {
 
     /**
      * 获取题目通过数量
-     * @param problemId
+     * @param submitQueryVO
      * @return
      */
-    Integer findProblemAcceptedTotal(Integer problemId);
+    Integer findProblemAcceptedTotal(SubmitQueryVO submitQueryVO);
 
     /**
      * 获取提交测评详细
@@ -90,4 +90,18 @@ public interface SubmitMapper {
      * @return
      */
     List<SubmitDO> findSubmits(SubmitQueryVO submitQueryVO);
+
+    /**
+     * 获取当前题目提交数量
+     * @param submitQueryVO
+     * @return
+     */
+    Integer findProblemSubmitTotal(SubmitQueryVO submitQueryVO);
+
+    /**
+     * 判断当前用户是否有提交
+     * @param submitQueryVO
+     * @return
+     */
+    Integer findProblemSubmit(SubmitQueryVO submitQueryVO);
 }

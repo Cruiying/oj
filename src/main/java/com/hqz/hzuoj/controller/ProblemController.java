@@ -25,14 +25,14 @@ public class ProblemController {
     private ProblemService problemService;
 
 
-    @RequestMapping(value = "{problemId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{problemId}", method = RequestMethod.POST)
     @ApiOperation("获取题目详情")
     public R problem(@PathVariable Integer problemId) {
         return R.ok("题目获取成功", problemService.findById(problemId));
     }
 
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ApiOperation("获取题目列表")
     public R problems(@RequestBody ProblemQueryVO problemQueryVO) {
         return R.ok("题目列表获取成功", problemService.findProblems(problemQueryVO));

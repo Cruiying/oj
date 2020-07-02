@@ -41,6 +41,11 @@
             </if>
         </where>
     </select>
+    <select id="findProblemTags" resultType="com.hqz.hzuoj.entity.DO.TagDO">
+        select * from problem_tag pt
+        join dictionary_option dict on pt.tag_code = dict.option_code
+        where pt.problem_id = #{problemId}
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="problemTagId" useGeneratedKeys="true">
