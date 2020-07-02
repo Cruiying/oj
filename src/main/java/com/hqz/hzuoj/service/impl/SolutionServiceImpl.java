@@ -3,6 +3,7 @@ package com.hqz.hzuoj.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hqz.hzuoj.common.base.CurrentUser;
+import com.hqz.hzuoj.common.constants.Constants;
 import com.hqz.hzuoj.common.exception.MyException;
 import com.hqz.hzuoj.common.util.PageUtils;
 import com.hqz.hzuoj.entity.DO.ProblemDO;
@@ -66,6 +67,7 @@ public class SolutionServiceImpl implements SolutionService {
         solution.setModifyTime(new Date());
         solution.setCreateTime(new Date());
         solution.setUserId(CurrentUser.getUserId());
+        solution.setStatusCode(Constants.Solution.Status.PENDING);
         ProblemDO problem = problemService.findById(solution.getProblemId());
         if (problem == null) {
             throw new MyException("题目不存在");
@@ -83,7 +85,7 @@ public class SolutionServiceImpl implements SolutionService {
     @Override
     public Solution update(Solution solution) {
         Integer userId = CurrentUser.getUserId();
-        if (CurrentUser.UserIsLogin()) {
+        if (!CurrentUser.UserIsLogin()) {
             throw new MyException("用户未登录");
         }
         Solution dbSolution = queryById(solution.getSolutionId());

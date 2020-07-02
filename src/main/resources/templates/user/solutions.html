@@ -53,7 +53,8 @@
     <div class="ui" style="background-image: url('/img/banner.jpg'); height: 150px;">
         <div class="ui container" style="padding-left: 9%; float: left">
             <div class="ui middle container" style="">
-                <h1 style="color: white; font-size: 32px; line-height: 150px;" v-text="'P' + problem.problemId + ' ' + problem.title + ' 题解'">P5850 calc加强版 题解</h1>
+                <h1 style="color: white; font-size: 32px; line-height: 150px;"
+                    v-text="'P' + problem.problemId + ' ' + problem.title + ' 题解'">P5850 calc加强版 题解</h1>
             </div>
         </div>
     </div>
@@ -67,24 +68,52 @@
                             <div><p style="margin-top: 1.6rem;font-size: 16px;color: rgba(0, 0, 0, .85);">
                                 抄袭、复制题解，以达到刷AC率/AC数量或其他目的的行为。</p></div>
                             <div style="margin-top: 1.6rem; text-align: right">
-                                <a :href="'/solution/' + problemId + '/editor'"  class="ui teal button" style="background-color: #22ae90; ">我要写题解</a>
+                                <a :href="'/solution/' + problemId + '/editor'" class="ui teal button"
+                                   style="background-color: #22ae90; ">我要写题解</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="solution"> </div>
-                <div class="sixteen wide column" style="margin: 25px 0 25px 0"
-                     th:if="${pageInfo==null||pageInfo.list==null || pageInfo.list.size()==0 }">
+                <div class="sixteen wide column" style="margin: 25px 0 25px 0" v-if="problemSolutionIsEmpty()">
                     <div class="ui segment">
                         <h1><b>还没有人发布题解</b></h1>
                         <p> 不如自己发布一篇？</p>
                     </div>
                 </div>
+
+                <div class="sixteen wide column" v-if="pageInfo != null" style="margin: 25px 0 25px 0" v-for="solution in pageInfo.list">
+                    <div class="ui segment grid">
+                        <div class="sixteen wide column">
+                            <div class="ui middle aligned">
+                                <div class="column" style="float: left">
+                                    作者: <a :href="'/user/' + solution.userId"
+                                           v-html="getUserRatingColor(solution.username, solution.rating)"></a>
+                                    更新时间: <span v-text="dateFormat(solution.modifyTime)">2020-02-26 15:23:08</span>
+                                    在<a :href="'/user/' + solution.username">Ta的博客查看</a>
+                                </div>
+                                <div class="column" style="float: right; ">
+                                    <i class="thumbs outline down icon"></i>
+                                    <i class="thumbs outline up icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sixteen wide column">
+                            <div class="ui" v-html="solution.content"></div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div style="margin-top:  30px; " th:if="${pageInfo!=null&&pageInfo.list!=null && pageInfo.list.size()!=0 }">
+        <!--    分页-->
+        <div style="margin-top:  30px; " v-if="page != null">
             <div style="text-align: center; ">
-                <div class="ui pagination menu" style="box-shadow: none; " id="page">
+                <div class="ui pagination menu" style="box-shadow: none; ">
+                    <a class="icon item" v-on:click="search(1)" :class="{'disabled':pageInfo.currPage === 1}">首页</a>
+                    <a class="icon item" v-on:click="search(page.page - 1)" :class="{'disabled':pageInfo.currPage === 1}"><i class="left chevron icon"></i></a>
+                    <a v-for="index in page.end" v-if="index >= page.begin" v-on:click="search(index)" class="item" :class="{'active':page.page === index}" v-text="index"></a>
+                    <a v-on:click="search(page.page + 1)"  :class="{'disabled':page.page === page.total}" class=" icon item"><i class="right chevron icon"></i></a>
+                    <a v-on:click="search(page.total)" :class="{'disabled':page.page===page.total}" class=" icon item">尾页</a>
                 </div>
             </div>
         </div>
@@ -98,7 +127,6 @@
         </footer>
     </div>
 </div>
-
 
 
 </body>
@@ -122,6 +150,7 @@
         el: "#app",
         data: {
             problemId: [[${problemId}]],
+            query: [[${query}]],
             pageInfo: null,
             problem: null,
             page: null
@@ -129,30 +158,38 @@
         methods: {
             initSolutions() {
                 if (this.problemId == null || this.problemId === -1) return null;
-                axios.post("/solution/list", {"problemId": this.problemId}).then((result)=>{
+                axios.post("/solution/list", this.query).then((result) => {
                     if (result.data["code"] === 200) {
                         this.pageInfo = result.data["data"];
                         this.page = common.getPage(this.pageInfo.currPage, this.pageInfo.totalPage);
                     }
-                }).catch((error)=>{
+                }).catch((error) => {
 
                 })
             },
             initProblem() {
                 if (this.problemId == null || this.problemId === -1) return null;
-                axios.post("/problem/" + this.problemId).then((result)=>{
+                axios.post("/problem/" + this.problemId).then((result) => {
                     if (result.data["code"] === 200) {
                         this.problem = result.data["data"];
                     }
-                }).catch((error)=>{
+                }).catch((error) => {
 
                 })
+            },
+            problemSolutionIsEmpty() {
+                if (this.pageInfo.totalPage === 0) return true;
+                return false;
             },
             getUserRatingColor(username, rating) {
                 return common.getUserRatingColor(username, rating);
             },
-            dateFormat (time) {
+            dateFormat(time) {
                 return common.getDateFormat(time);
+            },
+            search(currPage) {
+                this.query["currPage"] = currPage;
+                this.initSolutions();
             }
         },
         created() {

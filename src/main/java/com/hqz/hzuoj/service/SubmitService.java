@@ -83,4 +83,25 @@ public interface SubmitService {
      * @return
      */
     Integer saveSubmit(Submit submit);
+
+    /**
+     * 获取当前登录用户是否通过该题目
+     * @param problemId
+     * @return
+     */
+    Boolean findProblemAccepted(Integer problemId);
+
+    /**
+     * 获取题目提交数量
+     * @param problemId
+     * @return
+     */
+    Integer findProblemSubmitTotal(Integer problemId);
+
+    /**
+     * 判断当前登录用户是否有提交
+     * @param problemId
+     * @return
+     */
+    Boolean findProblemSubmit(Integer problemId);
 }

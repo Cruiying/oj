@@ -1,9 +1,7 @@
 package com.hqz.hzuoj.controller;
 
 import com.hqz.hzuoj.common.base.CurrentUser;
-import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
-import com.hqz.hzuoj.entity.VO.RankingQueryVO;
-import com.hqz.hzuoj.entity.VO.SubmitQueryVO;
+import com.hqz.hzuoj.entity.VO.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
@@ -62,11 +60,12 @@ public class UserViewController {
 
     @RequestMapping(value = "/problems", method = RequestMethod.GET)
     @ApiOperation("题目列表界面")
-    public String problems() {
+    public String problems(ProblemQueryVO problemQueryVO, Model map) {
+        map.addAttribute("query", problemQueryVO);
         return "user/problems";
     }
 
-    @RequestMapping(value = "/problems/{problemId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/problem/{problemId}", method = RequestMethod.GET)
     @ApiOperation("题目详情页面")
     public String problem(@PathVariable Integer problemId, Model map) {
         map.addAttribute("problemId", problemId);
@@ -117,8 +116,13 @@ public class UserViewController {
 
     @RequestMapping(value = "/solutions/{problemId}", method = RequestMethod.GET)
     @ApiOperation("题目题解列表页面")
-    public String solutions(@PathVariable Integer problemId, Model map) {
+    public String solutions(@PathVariable Integer problemId, SolutionQueryVO solutionQueryVO, Model map) {
         map.addAttribute("problemId", problemId);
+        if (solutionQueryVO == null) {
+            solutionQueryVO = new SolutionQueryVO();
+        }
+        solutionQueryVO.setProblemId(problemId);
+        map.addAttribute("query", solutionQueryVO);
         return "user/solutions";
     }
 
@@ -149,4 +153,8 @@ public class UserViewController {
         return "user/contest";
     }
 
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String home() {
+        return "user/home";
+    }
 }

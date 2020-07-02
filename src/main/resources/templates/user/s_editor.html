@@ -141,6 +141,7 @@
             },
             /** 保存或者修改题解 **/
             saveOrUpdateSolution() {
+                this.solution["problemId"] = this.problemId;
                 axios.post("/solution/saveOrUpdate", this.solution).then((result)=>{
                     if (result.data["code"] === 200) {
                         this.solution = result.data['data'];

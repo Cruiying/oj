@@ -1,5 +1,6 @@
 package com.hqz.hzuoj.service;
 
+import com.hqz.hzuoj.entity.DO.TagDO;
 import com.hqz.hzuoj.entity.model.ProblemTag;
 import java.util.List;
 
@@ -52,4 +53,10 @@ public interface ProblemTagService {
      */
     boolean deleteById(Integer problemTagId);
 
+    /**
+     * 获取题目标签
+     * @param problemId
+     * @return
+     */
+    List<TagDO> findProblemTags(Integer problemId);
 }

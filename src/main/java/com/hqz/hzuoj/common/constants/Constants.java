@@ -137,12 +137,13 @@ public class Constants {
     public static class Solution {
         /** 题解审核状态 **/
         public interface Status {
-            /** 未开始 **/
-            final Integer NOT_START = -1;
-            /** 进行中 **/
-            final Integer START = 0;
-            /** 已结束 **/
-            final Integer END = 1;
+
+            /** 审核中 **/
+            final Integer PENDING = -1;
+            /** 通过 **/
+            final Integer PASS = 0;
+            /** 未通过 **/
+            final Integer NOT_PASS = 1;
         }
     }
 

@@ -4,13 +4,16 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hqz.hzuoj.common.base.CurrentUser;
+import com.hqz.hzuoj.common.constants.Constants;
 import com.hqz.hzuoj.common.exception.MyException;
 import com.hqz.hzuoj.common.util.PageUtils;
 import com.hqz.hzuoj.entity.DO.ProblemDO;
 import com.hqz.hzuoj.entity.DO.SubmitDO;
 import com.hqz.hzuoj.entity.VO.SubmitQueryVO;
+import com.hqz.hzuoj.entity.model.JudgeResult;
 import com.hqz.hzuoj.entity.model.Submit;
 import com.hqz.hzuoj.mapper.SubmitMapper;
+import com.hqz.hzuoj.service.JudgeResultService;
 import com.hqz.hzuoj.service.ProblemService;
 import com.hqz.hzuoj.service.SubmitService;
 import org.springframework.stereotype.Service;
@@ -32,6 +35,9 @@ public class SubmitServiceImpl implements SubmitService {
 
     @Resource
     private ProblemService problemService;
+
+    @Resource
+    private JudgeResultService judgeResultService;
 
     /**
      * 通过ID查询单条数据
@@ -98,7 +104,13 @@ public class SubmitServiceImpl implements SubmitService {
      */
     @Override
     public Integer findProblemAcceptedTotal(Integer problemId) {
-        return submitMapper.findProblemAcceptedTotal(problemId);
+        SubmitQueryVO submitQueryVO = new SubmitQueryVO();
+        submitQueryVO.setType(Constants.Submit.Type.PROBLEM);
+        submitQueryVO.setPublicCode(Constants.Submit.Public.PUBLIC);
+        submitQueryVO.setProblemId(problemId);
+        JudgeResult judgeResult = judgeResultService.findJudgeResultByJudgeNameAbbr("AC");
+        submitQueryVO.setJudgeResultId(judgeResult.getJudgeResultId());
+        return submitMapper.findProblemAcceptedTotal(submitQueryVO);
     }
 
     /**
@@ -144,5 +156,55 @@ public class SubmitServiceImpl implements SubmitService {
         submit.setUserId(userId);
         submitMapper.saveSubmit(submit);
         return submit.getSubmitId();
+    }
+
+    /**
+     * 获取当前登录用户是否通过该题目
+     * @param problemId
+     * @return
+     */
+    @Override
+    public Boolean findProblemAccepted(Integer problemId) {
+        if (!CurrentUser.UserIsLogin()) {
+            return false;
+        }
+        SubmitQueryVO submitQueryVO = new SubmitQueryVO();
+        submitQueryVO.setPublicCode(Constants.Submit.Public.PUBLIC);
+        submitQueryVO.setType(Constants.Submit.Type.PROBLEM);
+        submitQueryVO.setCurrPage(1);
+        submitQueryVO.setPageSize(1);
+        JudgeResult judgeResult = judgeResultService.findJudgeResultByJudgeNameAbbr("AC");
+        submitQueryVO.setJudgeResultId(judgeResult.getJudgeResultId());
+        submitQueryVO.setUserId(CurrentUser.getUserId());
+        PageUtils submits = findSubmits(submitQueryVO);
+        return submits.getTotalCount() == 1;
+    }
+
+    /**
+     * 获取当前题目提交数量
+     * @param problemId
+     * @return
+     */
+    @Override
+    public Integer findProblemSubmitTotal(Integer problemId) {
+        SubmitQueryVO submitQueryVO = new SubmitQueryVO();
+        submitQueryVO.setProblemId(problemId);
+        submitQueryVO.setPublicCode(Constants.Submit.Public.PUBLIC);
+        submitQueryVO.setType(Constants.Submit.Type.PROBLEM);
+        return submitMapper.findProblemSubmitTotal(submitQueryVO);
+    }
+
+    /**
+     * 判断当前登录用户是否有提交
+     * @param problemId
+     * @return
+     */
+    @Override
+    public Boolean findProblemSubmit(Integer problemId) {
+        SubmitQueryVO submitQueryVO = new SubmitQueryVO();
+        submitQueryVO.setProblemId(problemId);
+        submitQueryVO.setPublicCode(Constants.Submit.Public.PUBLIC);
+        submitQueryVO.setType(Constants.Submit.Type.PROBLEM);
+        return submitMapper.findProblemSubmit(submitQueryVO) > 0;
     }
 }

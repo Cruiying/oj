@@ -7,7 +7,6 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@ApiModel("排行榜搜索")
 public class RankingQueryVO implements Serializable {
 
     /**

@@ -35,7 +35,7 @@ public class Solution implements Serializable {
     * 审核结果
     */
     @ApiModelProperty("审核结果")
-    private String statusCode;
+    private Integer statusCode;
     /**
     * 用户ID
     */
@@ -85,11 +85,11 @@ public class Solution implements Serializable {
         this.createTime = createTime;
     }
 
-    public String getStatusCode() {
+    public Integer getStatusCode() {
         return statusCode;
     }
 
-    public void setStatusCode(String statusCode) {
+    public void setStatusCode(Integer statusCode) {
         this.statusCode = statusCode;
     }
 

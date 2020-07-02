@@ -108,9 +108,11 @@ public class ProblemServiceImpl implements ProblemService {
     @Override
     public ProblemDO findById(Integer problemId) {
         //题目数据
+        System.err.println(problemId);
         ProblemDO problemDO = problemMapper.findById(problemId);
+        System.err.println(problemDO);
         if (problemDO == null) {
-            throw  new MyException("题目不存在");
+            throw new MyException("题目不存在");
         }
         //题目时间与内存限制
         ProblemDataDO problemDataDO = problemDataService.findProblemRuntimeTimeAndRuntimeMemory(problemId);
@@ -135,9 +137,10 @@ public class ProblemServiceImpl implements ProblemService {
             for (ProblemListDO problem : pageInfo.getList()) {
                 Integer problemId = problem.getProblemId();
                 problem.setAcceptedTotal(submitService.findProblemAcceptedTotal(problemId));
-                //problem.setSubmitTotal(submitService.findProblemSubmitTotal(problemId));
-                //problem.setAccepted(submitService.findProblemAccepted(problemId));
-                //problem.setTags(problemTagService.findProblemTags(problemId));
+                problem.setSubmit(submitService.findProblemSubmit(problemId));
+                problem.setSubmitTotal(submitService.findProblemSubmitTotal(problemId));
+                problem.setAccepted(submitService.findProblemAccepted(problemId));
+                problem.setTags(problemTagService.findProblemTags(problemId));
             }
         }
 

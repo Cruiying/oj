@@ -2,6 +2,8 @@ package com.hqz.hzuoj.controller;
 
 import com.hqz.hzuoj.common.R;
 import com.hqz.hzuoj.common.base.CurrentUser;
+import com.hqz.hzuoj.common.constants.Constants;
+import com.hqz.hzuoj.common.util.PageUtils;
 import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
 import com.hqz.hzuoj.entity.VO.SolutionQueryVO;
 import com.hqz.hzuoj.entity.model.Discussion;
@@ -27,7 +29,6 @@ public class SolutionController {
     @Resource
     private SolutionService solutionService;
 
-
     @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
     @ApiOperation("修改或者保存题解")
     public R saveOrUpdateSolution(@RequestBody Solution solution) {
@@ -47,6 +48,13 @@ public class SolutionController {
     @RequestMapping(value = "/{problemId}/{solutionId}", method = RequestMethod.POST)
     @ApiOperation("获取题解详情")
     public R querySolution(@PathVariable Integer problemId, @PathVariable Integer solutionId) {
-        return R.ok("获取成功", solutionService.findSolution(solutionId));
+        SolutionQueryVO solutionQueryVO = new SolutionQueryVO();
+        solutionQueryVO.setProblemId(problemId);
+        solutionQueryVO.setSolutionId(solutionId);
+        PageUtils solutions = solutionService.findSolutions(solutionQueryVO);
+        if (solutions == null) {
+            return R.ok("题解为空");
+        }
+        return R.ok("获取成功", solutions.getList());
     }
 }
