@@ -155,7 +155,7 @@ public class ProblemServiceImpl implements ProblemService {
     private static ProblemDO problemConvertMarkDown(ProblemDO problemDO) {
         problemDO.setBackground(MarkdownUtils.markdownToHtml(problemDO.getBackground()));
         problemDO.setContent(MarkdownUtils.markdownToHtml(problemDO.getContent()));
-        problemDO.setExplain(MarkdownUtils.markdownToHtml(problemDO.getExplain()));
+        problemDO.setExplanation(MarkdownUtils.markdownToHtml(problemDO.getExplanation()));
         problemDO.setInputContent(MarkdownUtils.markdownToHtml(problemDO.getInputContent()));
         problemDO.setOutputContent(MarkdownUtils.markdownToHtml(problemDO.getOutputContent()));
         return problemDO;

@@ -160,7 +160,7 @@
         <div class="ui"></div>
         <div class="ui" v-if="contest.contestStatus != 0">
             <div class="ui secondary m-item menu">
-                <a href="#explain" class="item m-item">
+                <a href="#explanation" class="item m-item">
                     <div style="cursor: pointer;">
                         <div v-on:click="onClick(0)" style="font-size: 16px!important;" class="contest-nav item">
                             <i class="home icon"></i>比赛说明
@@ -244,7 +244,7 @@
 主办单位：贺州学院
 
 【比赛说明】
-{{contest.contestExplain}}
+{{contest.contestExplanation}}
 
 【比赛流程】
 
@@ -271,7 +271,7 @@
 主办单位：贺州学院
 
 【比赛说明】
-{{contest.contestExplain}}
+{{contest.contestExplanation}}
 
 【比赛流程】
 
@@ -524,7 +524,7 @@
                     <div class="ui inline">
                         <span>排行榜已在 2019-12-08 17:00:00 比赛结束后正式封榜，比赛时间段之外的提交不计入排行。
                             <a style="color: #25bb9b;cursor: pointer;"
-                               v-on:click="showContestTypeExplain()">点击查看计分规则。</a>
+                               v-on:click="showContestTypeexplanation()">点击查看计分规则。</a>
                             <a style="color: #000; cursor: pointer;" v-on:click="contestRank()"><i
                                     class="download icon"></i>下载比赛排名</a>
                         </span>
@@ -691,13 +691,13 @@
                     <button class="ui positive button">确定</button>
                 </div>
             </div>
-            <div id="showContestTypeExplain" class="ui tiny test modal hidden" style="margin-top: -112.5px;">
+            <div id="showContestTypeexplanation" class="ui tiny test modal hidden" style="margin-top: -112.5px;">
                 <i class="close icon"></i>
                 <div class="header" style="text-align: center">
                     <div v-text="contest.contestType.contestTypeName+'赛制规则'"></div>
                 </div>
                 <div class="content">
-                    <h2 v-html="contest.contestType.contestTypeExplain"></h2>
+                    <h2 v-html="contest.contestType.contestTypeexplanation"></h2>
                 </div>
                 <div class="actions">
                     <div class="ui negative button">关闭</div>
@@ -814,8 +814,8 @@
             showPrivacyApplyContest: function () {
                 $('#showPrivacyApplyContest').modal('show');
             },
-            showContestTypeExplain: function () {
-                $('#showContestTypeExplain').modal('show');
+            showContestTypeexplanation: function () {
+                $('#showContestTypeexplanation').modal('show');
             },
             /**
              * 显示我的提交状态
@@ -1019,8 +1019,8 @@
                 $(item[index]).css("display", "block");
             },
             check: function () {
-                if (url.indexOf("#explain") != -1) {
-                    return "#explain";
+                if (url.indexOf("#explanation") != -1) {
+                    return "#explanation";
                 } else if (url.indexOf("#problem") != -1) {
                     return "#problem";
                 } else if (url.indexOf("#submit") != -1) {
@@ -1031,7 +1031,7 @@
                 return "";
             },
             showId: function () {
-                if (url.indexOf("#explain") != -1) {
+                if (url.indexOf("#explanation") != -1) {
                     this.hidden();
                     this.show(0);
                 } else if (url.indexOf("#problem") != -1) {

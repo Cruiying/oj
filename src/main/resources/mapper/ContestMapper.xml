@@ -9,7 +9,7 @@
         <result property="registerCount" column="register_count" jdbcType="INTEGER"/>
         <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
         <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
-        <result property="explain" column="explain" jdbcType="VARCHAR"/>
+        <result property="explanation" column="explanation" jdbcType="VARCHAR"/>
         <result property="createId" column="create_id" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateLastId" column="update_last_id" jdbcType="INTEGER"/>
@@ -31,7 +31,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="ContestMap">
         select
-          contest_id, name, type_code, register_count, start_time, end_time, explain, create_id, create_time, update_last_id, update_last_time, register_start_time, register_end_time, status_code, time_length, public_code, register_code, rating, rating_code, rank_code, rank_is_final, final_time, raking_final
+          contest_id, name, type_code, register_count, start_time, end_time, explanation, create_id, create_time, update_last_id, update_last_time, register_start_time, register_end_time, status_code, time_length, public_code, register_code, rating, rating_code, rank_code, rank_is_final, final_time, raking_final
         from oj.contest
         where contest_id = #{contestId}
     </select>
@@ -39,7 +39,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ContestMap">
         select
-          contest_id, name, type_code, register_count, start_time, end_time, explain, create_id, create_time, update_last_id, update_last_time, register_start_time, register_end_time, status_code, time_length, public_code, register_code, rating, rating_code, rank_code, rank_is_final, final_time, raking_final
+          contest_id, name, type_code, register_count, start_time, end_time, explanation, create_id, create_time, update_last_id, update_last_time, register_start_time, register_end_time, status_code, time_length, public_code, register_code, rating, rating_code, rank_code, rank_is_final, final_time, raking_final
         from oj.contest
         limit #{offset}, #{limit}
     </select>
@@ -47,7 +47,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ContestMap">
         select
-          contest_id, name, type_code, register_count, start_time, end_time, explain, create_id, create_time, update_last_id, update_last_time, register_start_time, register_end_time, status_code, time_length, public_code, register_code, rating, rating_code, rank_code, rank_is_final, final_time, raking_final
+          contest_id, name, type_code, register_count, start_time, end_time, explanation, create_id, create_time, update_last_id, update_last_time, register_start_time, register_end_time, status_code, time_length, public_code, register_code, rating, rating_code, rank_code, rank_is_final, final_time, raking_final
         from oj.contest
         <where>
             <if test="contestId != null">
@@ -68,8 +68,8 @@
             <if test="endTime != null">
                 and end_time = #{endTime}
             </if>
-            <if test="explain != null and explain != ''">
-                and explain = #{explain}
+            <if test="explanation != null and explanation != ''">
+                and explanation = #{explanation}
             </if>
             <if test="createId != null">
                 and create_id = #{createId}
@@ -124,8 +124,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="contestId" useGeneratedKeys="true">
-        insert into oj.contest(name, type_code, register_count, start_time, end_time, explain, create_id, create_time, update_last_id, update_last_time, register_start_time, register_end_time, status_code, time_length, public_code, register_code, rating, rating_code, rank_code, rank_is_final, final_time)
-        values (#{name}, #{typeCode}, #{registerCount}, #{startTime}, #{endTime}, #{explain}, #{createId}, #{createTime}, #{updateLastId}, #{updateLastTime}, #{registerStartTime}, #{registerEndTime}, #{statusCode}, #{timeLength}, #{publicCode}, #{registerCode}, #{rating}, #{ratingCode}, #{rankCode}, #{rankIsFinal}, #{finalTime})
+        insert into oj.contest(name, type_code, register_count, start_time, end_time, explanation, create_id, create_time, update_last_id, update_last_time, register_start_time, register_end_time, status_code, time_length, public_code, register_code, rating, rating_code, rank_code, rank_is_final, final_time)
+        values (#{name}, #{typeCode}, #{registerCount}, #{startTime}, #{endTime}, #{explanation}, #{createId}, #{createTime}, #{updateLastId}, #{updateLastTime}, #{registerStartTime}, #{registerEndTime}, #{statusCode}, #{timeLength}, #{publicCode}, #{registerCode}, #{rating}, #{ratingCode}, #{rankCode}, #{rankIsFinal}, #{finalTime})
     </insert>
 
     <!--通过主键修改数据-->
@@ -147,8 +147,8 @@
             <if test="endTime != null">
                 end_time = #{endTime},
             </if>
-            <if test="explain != null and explain != ''">
-                explain = #{explain},
+            <if test="explanation != null and explanation != ''">
+                explanation = #{explanation},
             </if>
             <if test="createId != null">
                 create_id = #{createId},

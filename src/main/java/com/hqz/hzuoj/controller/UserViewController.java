@@ -1,16 +1,24 @@
 package com.hqz.hzuoj.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hqz.hzuoj.common.base.CurrentUser;
+import com.hqz.hzuoj.common.constants.RabbitMqConstants;
 import com.hqz.hzuoj.entity.VO.*;
+import com.hqz.hzuoj.entity.model.Submit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+
+import javax.annotation.Resource;
+
 
 /**
  * @author Cruiying
@@ -19,7 +27,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @Api("用户界面页面显示")
 public class UserViewController {
-
+@Resource
+private RabbitTemplate rabbitTemplate;
     @RequestMapping(value = {"", "/index"}, method = RequestMethod.GET)
     @ApiOperation("用户首页")
     public String index() {

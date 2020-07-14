@@ -25,7 +25,7 @@ public class ProblemDO implements Serializable {
      * 题目说明
      */
     @ApiModelProperty("题目说明")
-    private String explain;
+    private String explanation;
     /**
      * 输入内容
      */
@@ -77,12 +77,12 @@ public class ProblemDO implements Serializable {
         this.content = content;
     }
 
-    public String getExplain() {
-        return explain;
+    public String getExplanation() {
+        return explanation;
     }
 
-    public void setExplain(String explain) {
-        this.explain = explain;
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
 
     public String getInputContent() {
@@ -131,7 +131,7 @@ public class ProblemDO implements Serializable {
                 "problemId=" + problemId +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", explain='" + explain + '\'' +
+                ", explanation='" + explanation + '\'' +
                 ", inputContent='" + inputContent + '\'' +
                 ", outputContent='" + outputContent + '\'' +
                 ", background='" + background + '\'' +
