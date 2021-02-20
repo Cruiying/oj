@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.Dictionary;
+import com.hqz.hzuoj.entity.model.Dictionary;
 import com.hqz.hzuoj.mapper.DictionaryMapper;
 import com.hqz.hzuoj.service.DictionaryService;
 import org.springframework.stereotype.Service;

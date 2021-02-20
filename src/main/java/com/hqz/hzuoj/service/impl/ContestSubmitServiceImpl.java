@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.ContestSubmit;
+import com.hqz.hzuoj.entity.model.ContestSubmit;
 import com.hqz.hzuoj.mapper.ContestSubmitMapper;
 import com.hqz.hzuoj.service.ContestSubmitService;
 import org.springframework.stereotype.Service;

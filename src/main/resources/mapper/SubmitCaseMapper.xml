@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.SubmitCaseMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.SubmitCase" id="SubmitCaseMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.SubmitCase" id="SubmitCaseMap">
         <result property="submitCaseId" column="submit_case_id" jdbcType="INTEGER"/>
         <result property="runtimeTime" column="runtime_time" jdbcType="INTEGER"/>
         <result property="runtimeMemory" column="runtime_memory" jdbcType="INTEGER"/>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.ProblemTagMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.ProblemTag" id="ProblemTagMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.ProblemTag" id="ProblemTagMap">
         <result property="problemTagId" column="problem_tag_id" jdbcType="INTEGER"/>
         <result property="problemId" column="problem_id" jdbcType="INTEGER"/>
         <result property="tagCode" column="tag_code" jdbcType="VARCHAR"/>
@@ -40,6 +40,11 @@
                 and tag_code = #{tagCode}
             </if>
         </where>
+    </select>
+    <select id="findProblemTags" resultType="com.hqz.hzuoj.entity.DO.TagDO">
+        select * from problem_tag pt
+        join dictionary_option dict on pt.tag_code = dict.option_code
+        where pt.problem_id = #{problemId}
     </select>
 
     <!--新增所有列-->

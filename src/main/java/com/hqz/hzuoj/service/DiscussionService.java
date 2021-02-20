@@ -1,9 +1,9 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.DO.DiscussionUserDO;
+import com.hqz.hzuoj.entity.DO.DiscussionUserDO;
 import com.hqz.hzuoj.common.util.PageUtils;
-import com.hqz.hzuoj.entity.Discussion;
-import com.hqz.hzuoj.VO.DiscussionQueryVO;
+import com.hqz.hzuoj.entity.model.Discussion;
+import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
 
 /**
  * (Discussion)表服务接口

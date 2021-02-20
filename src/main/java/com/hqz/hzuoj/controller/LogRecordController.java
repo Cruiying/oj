@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.LogRecord;
+import com.hqz.hzuoj.entity.model.LogRecord;
 import com.hqz.hzuoj.service.LogRecordService;
 import org.springframework.web.bind.annotation.*;
 

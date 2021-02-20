@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>题解</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="../static/css/semantic.css" th:href="@{/css/semantic.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <!--    <script type="text/javascript" src="../static/js/xadmin.js" th:src="@{/js/xadmin.js}"></script>-->
+    <link rel="stylesheet" href="../static/lib/layui/css/layui.css" media="all" th:href="@{/lib/layui/css/layui.css}">
+    <link rel="stylesheet" href="../static/lib/jq-module/zyupload/zyupload-1.0.0.min.css"
+          th:href="@{/lib/jq-module/zyupload/zyupload-1.0.0.min.css}" media="all">
+    <script src="../static/lib/vue/vue.js" th:src="@{/lib/vue/vue.js}"></script>
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/highlight.js/9.1.0/styles/tomorrow.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link rel="stylesheet" href="../static/lib/jq-module/zyupload/zyupload-1.0.0.min.css"
+          th:href="@{/lib/jq-module/zyupload/zyupload-1.0.0.min.css}" media="all">
+    <!--    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/default.min.css">-->
+    <link href="https://cdn.bootcss.com/prism/1.15.0/themes/prism.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/prism/1.15.0/plugins/line-numbers/prism-line-numbers.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <!--    <script src="../static/lib/vs/basic-languages/cpp/cpp.js" th:src="@{/lib/vs/basic-languages/cpp/cpp.js}"></script>-->
+    <!--    <script src="../static/lib/vs/basic-languages/**" th:src="@{/lib/vs/basic-languages/}"></script>-->
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css" th:href="@{/css/main.css}">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" data-name="vs/editor/editor.main"
+          href="https://cdn.jsdelivr.net/npm/syzoj-public-cdn@1.0.6/cdnjs/monaco-editor/0.18.1/min/vs/editor/editor.main.css">
+    <!--    <script async="async" type="text/javascript" src="https://cdn.jsdelivr.net/npm/syzoj-public-cdn@1.0.6/self/vendor/tokenizer/definitions/c_cpp.js"></script>-->
+    <!--    <script async="async" type="text/javascript" src="https://cdn.jsdelivr.net/npm/syzoj-public-cdn@1.0.6/self/vendor/tokenizer/definitions/java.js"></script>-->
+    <!--    <script async="async" type="text/javascript" src="https://cdn.jsdelivr.net/npm/syzoj-public-cdn@1.0.6/self/vendor/tokenizer/definitions/python.js"></script>-->
+</head>
+<body>
+<nav th:replace="fragment::menu('problems')"></nav>
+<div id="app">
+    <div class="ui" style="background-image: url('/img/banner.jpg'); height: 150px;">
+        <div class="ui container" style="padding-left: 9%; float: left">
+            <div class="ui middle container" style="">
+                <h1 style="color: white; font-size: 32px; line-height: 150px;"
+                    v-text="'P' + problem.problemId + ' ' + problem.title + ' 题解'">P5850 calc加强版 题解</h1>
+            </div>
+        </div>
+    </div>
+    <div style="background: rgba(3,3,3,0.03)!important;">
+        <div class="ui container">
+            <div class="ui">
+                <div class="sixteen wide column">
+                    <div class="ui segment grid">
+                        <div class="sixteen wide column">
+                            <div><h2><b>以下题解仅供学习参考使用。</b></h2></div>
+                            <div><p style="margin-top: 1.6rem;font-size: 16px;color: rgba(0, 0, 0, .85);">
+                                抄袭、复制题解，以达到刷AC率/AC数量或其他目的的行为。</p></div>
+                            <div style="margin-top: 1.6rem; text-align: right">
+                                <a :href="'/solution/' + problemId + '/editor'" class="ui teal button"
+                                   style="background-color: #22ae90; ">我要写题解</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sixteen wide column" style="margin: 25px 0 25px 0" v-if="problemSolutionIsEmpty()">
+                    <div class="ui segment">
+                        <h1><b>还没有人发布题解</b></h1>
+                        <p> 不如自己发布一篇？</p>
+                    </div>
+                </div>
+
+                <div class="sixteen wide column" v-if="pageInfo != null" style="margin: 25px 0 25px 0" v-for="solution in pageInfo.list">
+                    <div class="ui segment grid">
+                        <div class="sixteen wide column">
+                            <div class="ui middle aligned">
+                                <div class="column" style="float: left">
+                                    作者: <a :href="'/user/' + solution.userId"
+                                           v-html="getUserRatingColor(solution.username, solution.rating)"></a>
+                                    更新时间: <span v-text="dateFormat(solution.modifyTime)">2020-02-26 15:23:08</span>
+                                    在<a :href="'/user/' + solution.username">Ta的博客查看</a>
+                                </div>
+                                <div class="column" style="float: right; ">
+                                    <i class="thumbs outline down icon"></i>
+                                    <i class="thumbs outline up icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sixteen wide column">
+                            <div class="ui" v-html="solution.content"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--    分页-->
+        <div style="margin-top:  30px; " v-if="page != null">
+            <div style="text-align: center; ">
+                <div class="ui pagination menu" style="box-shadow: none; ">
+                    <a class="icon item" v-on:click="search(1)" :class="{'disabled':pageInfo.currPage === 1}">首页</a>
+                    <a class="icon item" v-on:click="search(page.page - 1)" :class="{'disabled':pageInfo.currPage === 1}"><i class="left chevron icon"></i></a>
+                    <a v-for="index in page.end" v-if="index >= page.begin" v-on:click="search(index)" class="item" :class="{'active':page.page === index}" v-text="index"></a>
+                    <a v-on:click="search(page.page + 1)"  :class="{'disabled':page.page === page.total}" class=" icon item"><i class="right chevron icon"></i></a>
+                    <a v-on:click="search(page.total)" :class="{'disabled':page.page===page.total}" class=" icon item">尾页</a>
+                </div>
+            </div>
+        </div>
+        <footer style="margin-top: 50px; background: rgba(33,33,33,0.1)!important;"
+                class="ui inverted vertical segment m-padded-tb-large">
+            <div class="content container ui">
+                <div class=" wide column">
+                    <h2 class="m-text-thin m-text-spaced m-opacity-tiny" style="color: black">贺州学院算法竞赛训练平台</h2>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+</body>
+<script src="../static/js/mathjax.js" th:src="@{/js/mathjax.js}"></script>
+<script src="../static/js/jquery.min.js" charset="utf-8" th:src="@{/js/jquery.min.js}"></script>
+<script src="https://cdn.bootcss.com/prism/1.15.0/prism.js"></script>
+<script src="https://cdn.bootcss.com/prism/1.15.0/components/prism-java.js"></script>
+<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+<script src="../static/js/mathjax.js" th:src="@{/js/mathjax.js}"></script>
+<script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/marked/0.3.4/marked.min.js"></script>
+<script src="../static/lib/layui/layui.js" charset="utf-8" th:src="@{/lib/layui/layui.js}"></script>
+<script src="../static/js/semantic.js" th:src="@{/js/semantic.js}"></script>
+<script src="../static/js/DateUtils.js" th:src="@{/js/DateUtils.js}"></script>
+<script src="../static/lib/jq-module/zyupload/zyupload-1.0.0.min.js"
+        th:src="@{/lib/jq-module/zyupload/zyupload-1.0.0.min.js}" charset="utf-8"></script>
+<script src="../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script th:inline="javascript">
+    new Vue({
+        el: "#app",
+        data: {
+            problemId: [[${problemId}]],
+            query: [[${query}]],
+            pageInfo: null,
+            problem: null,
+            page: null
+        },
+        methods: {
+            initSolutions() {
+                if (this.problemId == null || this.problemId === -1) return null;
+                axios.post("/solution/list", this.query).then((result) => {
+                    if (result.data["code"] === 200) {
+                        this.pageInfo = result.data["data"];
+                        this.page = common.getPage(this.pageInfo.currPage, this.pageInfo.totalPage);
+                    }
+                }).catch((error) => {
+
+                })
+            },
+            initProblem() {
+                if (this.problemId == null || this.problemId === -1) return null;
+                axios.post("/problem/" + this.problemId).then((result) => {
+                    if (result.data["code"] === 200) {
+                        this.problem = result.data["data"];
+                    }
+                }).catch((error) => {
+
+                })
+            },
+            problemSolutionIsEmpty() {
+                if (this.pageInfo.totalPage === 0) return true;
+                return false;
+            },
+            getUserRatingColor(username, rating) {
+                return common.getUserRatingColor(username, rating);
+            },
+            dateFormat(time) {
+                return common.getDateFormat(time);
+            },
+            search(currPage) {
+                this.query["currPage"] = currPage;
+                this.initSolutions();
+            }
+        },
+        created() {
+            this.initSolutions();
+            this.initProblem();
+        }
+    })
+</script>
+</html>

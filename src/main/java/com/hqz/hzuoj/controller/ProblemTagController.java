@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.ProblemTag;
+import com.hqz.hzuoj.entity.model.ProblemTag;
 import com.hqz.hzuoj.service.ProblemTagService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,15 +21,6 @@ public class ProblemTagController {
     @Resource
     private ProblemTagService problemTagService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public ProblemTag selectOne(Integer id) {
-        return this.problemTagService.queryById(id);
-    }
+
 
 }

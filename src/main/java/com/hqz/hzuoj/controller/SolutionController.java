@@ -1,7 +1,15 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.Solution;
+import com.hqz.hzuoj.common.R;
+import com.hqz.hzuoj.common.base.CurrentUser;
+import com.hqz.hzuoj.common.constants.Constants;
+import com.hqz.hzuoj.common.util.PageUtils;
+import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
+import com.hqz.hzuoj.entity.VO.SolutionQueryVO;
+import com.hqz.hzuoj.entity.model.Discussion;
+import com.hqz.hzuoj.entity.model.Solution;
 import com.hqz.hzuoj.service.SolutionService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,15 +29,32 @@ public class SolutionController {
     @Resource
     private SolutionService solutionService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public Solution selectOne(Integer id) {
-        return this.solutionService.queryById(id);
+    @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
+    @ApiOperation("修改或者保存题解")
+    public R saveOrUpdateSolution(@RequestBody Solution solution) {
+        if (solution.getSolutionId() != null) {
+            return R.ok("更新成功", solutionService.update(solution));
+        } else {
+            return R.ok("保存成功",solutionService.insert(solution));
+        }
     }
 
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    @ApiOperation("获取题解列表")
+    public R querySolutions(@RequestBody SolutionQueryVO solutionQueryVO) {
+        return R.ok("获取成功", solutionService.findSolutions(solutionQueryVO));
+    }
+
+    @RequestMapping(value = "/{problemId}/{solutionId}", method = RequestMethod.POST)
+    @ApiOperation("获取题解详情")
+    public R querySolution(@PathVariable Integer problemId, @PathVariable Integer solutionId) {
+        SolutionQueryVO solutionQueryVO = new SolutionQueryVO();
+        solutionQueryVO.setProblemId(problemId);
+        solutionQueryVO.setSolutionId(solutionId);
+        PageUtils solutions = solutionService.findSolutions(solutionQueryVO);
+        if (solutions == null) {
+            return R.ok("题解为空");
+        }
+        return R.ok("获取成功", solutions.getList());
+    }
 }

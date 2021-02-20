@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.DictionaryOptionMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.DictionaryOption" id="DictionaryOptionMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.DictionaryOption" id="DictionaryOptionMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="dictId" column="dict_id" jdbcType="INTEGER"/>
         <result property="optionCode" column="option_code" jdbcType="VARCHAR"/>

@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.ContestRegister;
+import com.hqz.hzuoj.entity.model.ContestRegister;
 import com.hqz.hzuoj.mapper.ContestRegisterMapper;
 import com.hqz.hzuoj.service.ContestRegisterService;
 import org.springframework.stereotype.Service;

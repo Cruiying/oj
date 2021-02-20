@@ -188,11 +188,18 @@ class Common {
         }
         return page;
     }
-    getURL (obj) {
+    getURL (map) {
         let url = "?";
-        for(let key in obj){
-            if (key != null) {
-                url += key + "=" + obj[key] + '&';
+        let fistValue = true;
+        for(let key in map){
+            if (key != null && map[key] != null) {
+                if (fistValue) {
+                    url += key + "=" + map[key];
+                    fistValue = false;
+                } else {
+                    url += "&" + key + "=" + map[key];
+                }
+
             }
         }
         return url;

@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.Language;
+import com.hqz.hzuoj.entity.model.Language;
 import java.util.List;
 
 /**
@@ -52,4 +52,9 @@ public interface LanguageService {
      */
     boolean deleteById(Integer languageId);
 
+    /**
+     * 获取语言列表
+     * @return
+     */
+    List<Language> findLanguages();
 }

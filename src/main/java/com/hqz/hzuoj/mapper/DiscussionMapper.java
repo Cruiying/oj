@@ -1,9 +1,9 @@
 package com.hqz.hzuoj.mapper;
 
-import com.hqz.hzuoj.DO.DiscussionUserDO;
-import com.hqz.hzuoj.entity.Discussion;
-import com.hqz.hzuoj.entity.DiscussionComment;
-import com.hqz.hzuoj.VO.DiscussionQueryVO;
+import com.hqz.hzuoj.entity.DO.DiscussionUserDO;
+import com.hqz.hzuoj.entity.model.Discussion;
+import com.hqz.hzuoj.entity.model.DiscussionComment;
+import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 

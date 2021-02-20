@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.SolutionMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.Solution" id="SolutionMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.Solution" id="SolutionMap">
         <result property="solutionId" column="solution_id" jdbcType="INTEGER"/>
         <result property="problemId" column="problem_id" jdbcType="INTEGER"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
@@ -60,6 +60,28 @@
                 and modify_time = #{modifyTime}
             </if>
         </where>
+    </select>
+    <select id="findSolutions" resultType="com.hqz.hzuoj.entity.DO.SolutionDo">
+        select * from solution s
+        join `user` u on s.user_id = u.user_id
+        join problem p on s.problem_id = p.problem_id
+        <where>
+            1 = 1
+            <if test="solutionId != null">
+                and s.solution_id = #{solutionId}
+            </if>
+            <if test="problemId != null">
+                and s.problem_id = #{problemId}
+            </if>
+            <if test="userId != null">
+                and s.user_id = #{userId}
+            </if>
+            and s.statuc_code = #{status}
+        </where>
+    </select>
+<!--    获取题解详情-->
+    <select id="findSolution" resultType="com.hqz.hzuoj.entity.model.Solution">
+        select * from solution where solution_id = #{solutionId}
     </select>
 
     <!--新增所有列-->

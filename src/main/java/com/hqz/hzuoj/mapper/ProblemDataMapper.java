@@ -1,6 +1,7 @@
 package com.hqz.hzuoj.mapper;
 
-import com.hqz.hzuoj.entity.ProblemData;
+import com.hqz.hzuoj.entity.DO.ProblemDataDO;
+import com.hqz.hzuoj.entity.model.ProblemData;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -62,4 +63,10 @@ public interface ProblemDataMapper {
      */
     int deleteById(Integer problemDataId);
 
+    /**
+     * 获取题目时间与内存限制
+     * @param problemId
+     * @return
+     */
+    ProblemDataDO findProblemRuntimeTimeAndRuntimeMemory(Integer problemId);
 }

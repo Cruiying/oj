@@ -1,6 +1,11 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.Problem;
+import com.hqz.hzuoj.common.util.PageUtils;
+import com.hqz.hzuoj.entity.DO.ProblemDO;
+import com.hqz.hzuoj.entity.VO.ProblemQueryVO;
+import com.hqz.hzuoj.entity.model.Problem;
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 /**
@@ -52,4 +57,17 @@ public interface ProblemService {
      */
     boolean deleteById(Integer problemId);
 
+    /**
+     * 通过ID获取题目
+     * @param problemId
+     * @return
+     */
+    ProblemDO findById(Integer problemId);
+
+    /**
+     * 获取题目列表
+     * @param problemQueryVO
+     * @return
+     */
+    PageUtils findProblems(ProblemQueryVO problemQueryVO);
 }

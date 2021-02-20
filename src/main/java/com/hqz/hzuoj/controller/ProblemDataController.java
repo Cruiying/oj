@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.ProblemData;
+import com.hqz.hzuoj.entity.model.ProblemData;
 import com.hqz.hzuoj.service.ProblemDataService;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,0 +1,23 @@
+{
+  "code": 200,
+  "message": "题目列表获取成功",
+  "data": {
+    "totalCount": 1,
+    "pageSize": 1,
+    "totalPage": 1,
+    "currPage": 1,
+    "list": [
+      {
+        "problemId": 1,
+        "title": "标题",
+        "accepted": false,
+        "submit": false,
+        "acceptedTotal": 0,
+        "submitTotal": 0,
+        "levelCode": "PROBLEM_LEVEL_CODE",
+        "levelName": null,
+        "tags": []
+      }
+    ]
+  }
+}

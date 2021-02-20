@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.SysRole;
+import com.hqz.hzuoj.entity.model.SysRole;
 import com.hqz.hzuoj.mapper.SysRoleMapper;
 import com.hqz.hzuoj.service.SysRoleService;
 import org.springframework.stereotype.Service;

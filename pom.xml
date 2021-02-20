@@ -39,8 +39,12 @@
         <tk.mybatis.version>2.1.5</tk.mybatis.version>
         <aspects.version>5.1.9.RELEASE</aspects.version>
         <commons.codec>1.6</commons.codec>
-        <commons.beanutils.version>1.9.3</commons.beanutils.version>
+        <commons.beanutils.version>1.9.4</commons.beanutils.version>
         <zookeeper.version>3.4.10</zookeeper.version>
+        <jwt.version>3.4.1</jwt.version>
+        <markdown.version>0.10.0</markdown.version>
+        <hutool-http.version>5.3.7</hutool-http.version>
+        <zip.version>1.3.3</zip.version>
     </properties>
     <repositories>
         <repository>
@@ -56,6 +60,28 @@
     </pluginRepositories>
 
     <dependencies>
+        <!--  markdown -->
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>${markdown.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
+            <version>${markdown.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark-ext-heading-anchor</artifactId>
+            <version>${markdown.version}</version>
+        </dependency>
+        <!--JWT-->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
         <!-- fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -223,6 +249,25 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
             <version>${springboot.version}</version>
+        </dependency>
+        <!--  热部署      -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <!--   http下载工具     -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+            <version>${hutool-http.version}</version>
+        </dependency>
+        <!-- zip解压工具       -->
+        <dependency>
+            <groupId>net.lingala.zip4j</groupId>
+            <artifactId>zip4j</artifactId>
+            <version>${zip.version}</version>
         </dependency>
     </dependencies>
 

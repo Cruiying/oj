@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.OssResource;
+import com.hqz.hzuoj.entity.model.OssResource;
 import com.hqz.hzuoj.service.OssResourceService;
 import org.springframework.web.bind.annotation.*;
 

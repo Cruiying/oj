@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.mapper;
 
-import com.hqz.hzuoj.entity.Language;
+import com.hqz.hzuoj.entity.model.Language;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -62,4 +62,9 @@ public interface LanguageMapper {
      */
     int deleteById(Integer languageId);
 
+    /**
+     * 获取语言列表
+     * @return
+     */
+    List<Language> findLanguages();
 }

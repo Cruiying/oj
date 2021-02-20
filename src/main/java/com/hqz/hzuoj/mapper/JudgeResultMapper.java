@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.mapper;
 
-import com.hqz.hzuoj.entity.JudgeResult;
+import com.hqz.hzuoj.entity.model.JudgeResult;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -62,4 +62,16 @@ public interface JudgeResultMapper {
      */
     int deleteById(Integer judgeResultId);
 
+    /**
+     * 获取所有测评结果
+     * @return
+     */
+    List<JudgeResult> findJudgeResults();
+
+    /**
+     * 根据测评名称查找测评结果
+     * @param judgeNameAbbr
+     * @return
+     */
+    JudgeResult findJudgeResultByJudgeNameAbbr(String judgeNameAbbr);
 }

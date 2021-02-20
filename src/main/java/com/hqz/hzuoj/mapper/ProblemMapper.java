@@ -1,6 +1,9 @@
 package com.hqz.hzuoj.mapper;
 
-import com.hqz.hzuoj.entity.Problem;
+import com.hqz.hzuoj.entity.DO.ProblemDO;
+import com.hqz.hzuoj.entity.DO.ProblemListDO;
+import com.hqz.hzuoj.entity.VO.ProblemQueryVO;
+import com.hqz.hzuoj.entity.model.Problem;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -62,4 +65,17 @@ public interface ProblemMapper {
      */
     int deleteById(Integer problemId);
 
+    /**
+     * 通过ID获取题目
+     * @param problemId
+     * @return
+     */
+    ProblemDO findById(Integer problemId);
+
+    /**
+     * 获取题目列表
+     * @param problemQueryVO
+     * @return
+     */
+    List<ProblemListDO> findProblems(ProblemQueryVO problemQueryVO);
 }

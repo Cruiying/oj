@@ -1,11 +1,13 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.ProblemTag;
+import com.hqz.hzuoj.entity.DO.TagDO;
+import com.hqz.hzuoj.entity.model.ProblemTag;
 import com.hqz.hzuoj.mapper.ProblemTagMapper;
 import com.hqz.hzuoj.service.ProblemTagService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
 @Service("problemTagService")
 public class ProblemTagServiceImpl implements ProblemTagService {
     @Resource
-    private ProblemTagMapper problemTagDao;
+    private ProblemTagMapper problemTagMapper;
 
     /**
      * 通过ID查询单条数据
@@ -27,7 +29,7 @@ public class ProblemTagServiceImpl implements ProblemTagService {
      */
     @Override
     public ProblemTag queryById(Integer problemTagId) {
-        return this.problemTagDao.queryById(problemTagId);
+        return this.problemTagMapper.queryById(problemTagId);
     }
 
     /**
@@ -39,7 +41,7 @@ public class ProblemTagServiceImpl implements ProblemTagService {
      */
     @Override
     public List<ProblemTag> queryAllByLimit(int offset, int limit) {
-        return this.problemTagDao.queryAllByLimit(offset, limit);
+        return this.problemTagMapper.queryAllByLimit(offset, limit);
     }
 
     /**
@@ -50,7 +52,7 @@ public class ProblemTagServiceImpl implements ProblemTagService {
      */
     @Override
     public ProblemTag insert(ProblemTag problemTag) {
-        this.problemTagDao.insert(problemTag);
+        this.problemTagMapper.insert(problemTag);
         return problemTag;
     }
 
@@ -62,7 +64,7 @@ public class ProblemTagServiceImpl implements ProblemTagService {
      */
     @Override
     public ProblemTag update(ProblemTag problemTag) {
-        this.problemTagDao.update(problemTag);
+        this.problemTagMapper.update(problemTag);
         return this.queryById(problemTag.getProblemTagId());
     }
 
@@ -74,6 +76,17 @@ public class ProblemTagServiceImpl implements ProblemTagService {
      */
     @Override
     public boolean deleteById(Integer problemTagId) {
-        return this.problemTagDao.deleteById(problemTagId) > 0;
+        return this.problemTagMapper.deleteById(problemTagId) > 0;
+    }
+
+    /**
+     * 获取题目标签
+     * @param problemId
+     * @return
+     */
+    @Override
+    public List<TagDO> findProblemTags(Integer problemId) {
+//        return new ArrayList<>();
+        return problemTagMapper.findProblemTags(problemId);
     }
 }

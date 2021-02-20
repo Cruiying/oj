@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.OssResource;
+import com.hqz.hzuoj.entity.model.OssResource;
 import com.hqz.hzuoj.mapper.OssResourceMapper;
 import com.hqz.hzuoj.service.OssResourceService;
 import org.springframework.stereotype.Service;

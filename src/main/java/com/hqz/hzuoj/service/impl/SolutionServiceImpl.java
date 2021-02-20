@@ -1,11 +1,22 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.Solution;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.hqz.hzuoj.common.base.CurrentUser;
+import com.hqz.hzuoj.common.constants.Constants;
+import com.hqz.hzuoj.common.exception.MyException;
+import com.hqz.hzuoj.common.util.PageUtils;
+import com.hqz.hzuoj.entity.DO.ProblemDO;
+import com.hqz.hzuoj.entity.DO.SolutionDo;
+import com.hqz.hzuoj.entity.VO.SolutionQueryVO;
+import com.hqz.hzuoj.entity.model.Solution;
 import com.hqz.hzuoj.mapper.SolutionMapper;
+import com.hqz.hzuoj.service.ProblemService;
 import com.hqz.hzuoj.service.SolutionService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,7 +28,10 @@ import java.util.List;
 @Service("solutionService")
 public class SolutionServiceImpl implements SolutionService {
     @Resource
-    private SolutionMapper solutionDao;
+    private SolutionMapper solutionMapper;
+
+    @Resource
+    private ProblemService problemService;
 
     /**
      * 通过ID查询单条数据
@@ -27,7 +41,7 @@ public class SolutionServiceImpl implements SolutionService {
      */
     @Override
     public Solution queryById(Integer solutionId) {
-        return this.solutionDao.queryById(solutionId);
+        return this.solutionMapper.queryById(solutionId);
     }
 
     /**
@@ -39,7 +53,7 @@ public class SolutionServiceImpl implements SolutionService {
      */
     @Override
     public List<Solution> queryAllByLimit(int offset, int limit) {
-        return this.solutionDao.queryAllByLimit(offset, limit);
+        return this.solutionMapper.queryAllByLimit(offset, limit);
     }
 
     /**
@@ -50,7 +64,15 @@ public class SolutionServiceImpl implements SolutionService {
      */
     @Override
     public Solution insert(Solution solution) {
-        this.solutionDao.insert(solution);
+        solution.setModifyTime(new Date());
+        solution.setCreateTime(new Date());
+        solution.setUserId(CurrentUser.getUserId());
+        solution.setStatusCode(Constants.Solution.Status.PENDING);
+        ProblemDO problem = problemService.findById(solution.getProblemId());
+        if (problem == null) {
+            throw new MyException("题目不存在");
+        }
+        this.solutionMapper.insert(solution);
         return solution;
     }
 
@@ -62,7 +84,20 @@ public class SolutionServiceImpl implements SolutionService {
      */
     @Override
     public Solution update(Solution solution) {
-        this.solutionDao.update(solution);
+        Integer userId = CurrentUser.getUserId();
+        if (!CurrentUser.UserIsLogin()) {
+            throw new MyException("用户未登录");
+        }
+        Solution dbSolution = queryById(solution.getSolutionId());
+        if (!userId.equals(dbSolution.getUserId())) {
+            throw new MyException("修改失败！");
+        }
+        ProblemDO problem = problemService.findById(solution.getProblemId());
+        if (problem == null) {
+            throw new MyException("题目不存在");
+        }
+        solution.setModifyTime(new Date());
+        this.solutionMapper.update(solution);
         return this.queryById(solution.getSolutionId());
     }
 
@@ -74,6 +109,30 @@ public class SolutionServiceImpl implements SolutionService {
      */
     @Override
     public boolean deleteById(Integer solutionId) {
-        return this.solutionDao.deleteById(solutionId) > 0;
+        return this.solutionMapper.deleteById(solutionId) > 0;
+    }
+
+    /**
+     * 获取题解列表
+     * @param solutionQueryVO
+     * @return
+     */
+    @Override
+    public PageUtils findSolutions(SolutionQueryVO solutionQueryVO) {
+        PageHelper.startPage(solutionQueryVO.getCurrPage(), solutionQueryVO.getPageSize());
+        List<SolutionDo> list = solutionMapper.findSolutions(solutionQueryVO);
+        PageInfo<SolutionDo> pageInfo = new PageInfo<>(list);
+        return new PageUtils(pageInfo);
+    }
+
+    /**
+     * 获取题解详情
+     * @param solutionId
+     * @return
+     */
+    @Override
+    public Solution findSolution(Integer solutionId) {
+        return solutionMapper.findSolution(solutionId);
+
     }
 }

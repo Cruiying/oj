@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.OssResource;
+import com.hqz.hzuoj.entity.model.OssResource;
 import java.util.List;
 
 /**

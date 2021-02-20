@@ -1,7 +1,9 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.User;
+import com.hqz.hzuoj.common.R;
+import com.hqz.hzuoj.entity.VO.RankingQueryVO;
 import com.hqz.hzuoj.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,21 +17,13 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("user")
 public class UserController {
-    /**
-     * 服务对象
-     */
+
     @Resource
     private UserService userService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public User selectOne(Integer id) {
-        return this.userService.queryById(id);
+    @RequestMapping(value = "/ranking", method = RequestMethod.POST)
+    @ApiOperation("获取用户排行榜")
+    public R ranking(@RequestBody RankingQueryVO rankingQueryVO) {
+        return R.ok("获取成功", userService.ranking(rankingQueryVO));
     }
-
 }

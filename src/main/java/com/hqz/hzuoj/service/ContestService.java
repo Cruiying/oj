@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.Contest;
+import com.hqz.hzuoj.entity.model.Contest;
 import java.util.List;
 
 /**

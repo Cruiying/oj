@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.JudgeResultMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.JudgeResult" id="JudgeResultMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.JudgeResult" id="JudgeResultMap">
         <result property="judgeResultId" column="judge_result_id" jdbcType="INTEGER"/>
         <result property="judgeName" column="judge_name" jdbcType="VARCHAR"/>
         <result property="judgeNameAbbr" column="judge_name_abbr" jdbcType="VARCHAR"/>
@@ -40,6 +40,14 @@
                 and judge_name_abbr = #{judgeNameAbbr}
             </if>
         </where>
+    </select>
+<!--    返回所有测评结果-->
+    <select id="findJudgeResults" resultType="com.hqz.hzuoj.entity.model.JudgeResult">
+        select judge_result_id, judge_name, judge_name_abbr from judge_result
+    </select>
+<!--    根据测评名称返回测评结果-->
+    <select id="findJudgeResultByJudgeNameAbbr" resultType="com.hqz.hzuoj.entity.model.JudgeResult">
+        select judge_result_id, judge_name, judge_name_abbr from judge_result where judge_name_abbr = #{judgeNameAbbr}
     </select>
 
     <!--新增所有列-->

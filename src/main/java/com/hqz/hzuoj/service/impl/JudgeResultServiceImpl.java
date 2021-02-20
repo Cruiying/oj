@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.JudgeResult;
+import com.hqz.hzuoj.entity.model.JudgeResult;
 import com.hqz.hzuoj.mapper.JudgeResultMapper;
 import com.hqz.hzuoj.service.JudgeResultService;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service("judgeResultService")
 public class JudgeResultServiceImpl implements JudgeResultService {
     @Resource
-    private JudgeResultMapper judgeResultDao;
+    private JudgeResultMapper judgeResultMapper;
 
     /**
      * 通过ID查询单条数据
@@ -27,7 +27,7 @@ public class JudgeResultServiceImpl implements JudgeResultService {
      */
     @Override
     public JudgeResult queryById(Integer judgeResultId) {
-        return this.judgeResultDao.queryById(judgeResultId);
+        return this.judgeResultMapper.queryById(judgeResultId);
     }
 
     /**
@@ -39,7 +39,7 @@ public class JudgeResultServiceImpl implements JudgeResultService {
      */
     @Override
     public List<JudgeResult> queryAllByLimit(int offset, int limit) {
-        return this.judgeResultDao.queryAllByLimit(offset, limit);
+        return this.judgeResultMapper.queryAllByLimit(offset, limit);
     }
 
     /**
@@ -50,7 +50,7 @@ public class JudgeResultServiceImpl implements JudgeResultService {
      */
     @Override
     public JudgeResult insert(JudgeResult judgeResult) {
-        this.judgeResultDao.insert(judgeResult);
+        this.judgeResultMapper.insert(judgeResult);
         return judgeResult;
     }
 
@@ -62,7 +62,7 @@ public class JudgeResultServiceImpl implements JudgeResultService {
      */
     @Override
     public JudgeResult update(JudgeResult judgeResult) {
-        this.judgeResultDao.update(judgeResult);
+        this.judgeResultMapper.update(judgeResult);
         return this.queryById(judgeResult.getJudgeResultId());
     }
 
@@ -74,6 +74,21 @@ public class JudgeResultServiceImpl implements JudgeResultService {
      */
     @Override
     public boolean deleteById(Integer judgeResultId) {
-        return this.judgeResultDao.deleteById(judgeResultId) > 0;
+        return this.judgeResultMapper.deleteById(judgeResultId) > 0;
+    }
+
+    @Override
+    public List<JudgeResult> findJudgeResults() {
+        return judgeResultMapper.findJudgeResults();
+    }
+
+    /**
+     * 根据测评缩写名称查找测评结果
+     * @param judgeNameAbbr
+     * @return
+     */
+    @Override
+    public JudgeResult findJudgeResultByJudgeNameAbbr(String judgeNameAbbr) {
+        return judgeResultMapper.findJudgeResultByJudgeNameAbbr(judgeNameAbbr);
     }
 }

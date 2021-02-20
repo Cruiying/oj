@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.JudgeResult;
+import com.hqz.hzuoj.entity.model.JudgeResult;
 import java.util.List;
 
 /**
@@ -52,4 +52,16 @@ public interface JudgeResultService {
      */
     boolean deleteById(Integer judgeResultId);
 
+    /**
+     * 获取所有测评结果
+     * @return
+     */
+    List<JudgeResult> findJudgeResults();
+
+    /**
+     * 根据测评缩写查找测评结果
+     * @param judgeNameAbbr
+     * @return
+     */
+    JudgeResult findJudgeResultByJudgeNameAbbr(String judgeNameAbbr);
 }

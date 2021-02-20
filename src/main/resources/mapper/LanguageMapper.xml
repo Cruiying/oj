@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.LanguageMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.Language" id="LanguageMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.Language" id="LanguageMap">
         <result property="languageId" column="language_id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="compileCmd" column="compile_cmd" jdbcType="VARCHAR"/>
@@ -60,6 +60,10 @@
                 and mul_memory = #{mulMemory}
             </if>
         </where>
+    </select>
+<!--    获取所有语言-->
+    <select id="findLanguages" resultType="com.hqz.hzuoj.entity.model.Language">
+        select language_id,mul_time,mul_memory,`name`,model from `language`
     </select>
 
     <!--新增所有列-->

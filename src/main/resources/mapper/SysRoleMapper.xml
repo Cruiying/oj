@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.SysRoleMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.SysRole" id="SysRoleMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.SysRole" id="SysRoleMap">
         <result property="roleId" column="role_id" jdbcType="INTEGER"/>
         <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
         <result property="remark" column="remark" jdbcType="VARCHAR"/>

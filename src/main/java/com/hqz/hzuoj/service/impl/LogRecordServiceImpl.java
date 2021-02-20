@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service.impl;
 
-import com.hqz.hzuoj.entity.LogRecord;
+import com.hqz.hzuoj.entity.model.LogRecord;
 import com.hqz.hzuoj.mapper.LogRecordMapper;
 import com.hqz.hzuoj.service.LogRecordService;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,9 @@
 package com.hqz.hzuoj.controller;
 
 import com.hqz.hzuoj.common.R;
-import com.hqz.hzuoj.entity.Discussion;
+import com.hqz.hzuoj.entity.model.Discussion;
 import com.hqz.hzuoj.service.DiscussionService;
-import com.hqz.hzuoj.service.UserService;
-import com.hqz.hzuoj.VO.DiscussionQueryVO;
+import com.hqz.hzuoj.entity.VO.DiscussionQueryVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.User;
-import com.hqz.hzuoj.VO.SysUserTokenVO;
+import com.hqz.hzuoj.entity.DTO.SysUserTokenDTO;
 
 import java.util.Set;
 
@@ -27,14 +26,8 @@ public interface ShiroService {
      * @param token
      * @return
      */
-    SysUserTokenVO queryByToken(String token);
+    SysUserTokenDTO queryByToken(String token);
 
-    /**
-     * 查询用户信息
-     * @param userId
-     * @return
-     */
-    User queryUser(Integer userId);
 
     /**
      * 续期

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.LogRecordMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.LogRecord" id="LogRecordMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.LogRecord" id="LogRecordMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="record" column="record" jdbcType="VARCHAR"/>
     </resultMap>

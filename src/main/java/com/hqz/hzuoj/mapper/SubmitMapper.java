@@ -1,6 +1,8 @@
 package com.hqz.hzuoj.mapper;
 
-import com.hqz.hzuoj.entity.Submit;
+import com.hqz.hzuoj.entity.DO.SubmitDO;
+import com.hqz.hzuoj.entity.VO.SubmitQueryVO;
+import com.hqz.hzuoj.entity.model.Submit;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -62,4 +64,44 @@ public interface SubmitMapper {
      */
     int deleteById(Integer submitId);
 
+    /**
+     * 获取题目通过数量
+     * @param submitQueryVO
+     * @return
+     */
+    Integer findProblemAcceptedTotal(SubmitQueryVO submitQueryVO);
+
+    /**
+     * 获取提交测评详细
+     * @param submitId
+     * @return
+     */
+    SubmitDO findSubmit(Integer submitId);
+
+    /**
+     * 保存测评记录
+     * @param submit
+     */
+    void saveSubmit(Submit submit);
+
+    /**
+     * 获取测评列表
+     * @param submitQueryVO
+     * @return
+     */
+    List<SubmitDO> findSubmits(SubmitQueryVO submitQueryVO);
+
+    /**
+     * 获取当前题目提交数量
+     * @param submitQueryVO
+     * @return
+     */
+    Integer findProblemSubmitTotal(SubmitQueryVO submitQueryVO);
+
+    /**
+     * 判断当前用户是否有提交
+     * @param submitQueryVO
+     * @return
+     */
+    Integer findProblemSubmit(SubmitQueryVO submitQueryVO);
 }

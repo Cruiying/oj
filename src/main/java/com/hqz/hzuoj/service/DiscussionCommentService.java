@@ -1,7 +1,7 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.DTO.DiscussionCommentDTO;
-import com.hqz.hzuoj.entity.DiscussionComment;
+import com.hqz.hzuoj.entity.DTO.DiscussionCommentDTO;
+import com.hqz.hzuoj.entity.model.DiscussionComment;
 
 import java.util.List;
 

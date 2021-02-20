@@ -1,6 +1,8 @@
 package com.hqz.hzuoj.mapper;
 
-import com.hqz.hzuoj.entity.Solution;
+import com.hqz.hzuoj.entity.DO.SolutionDo;
+import com.hqz.hzuoj.entity.VO.SolutionQueryVO;
+import com.hqz.hzuoj.entity.model.Solution;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -62,4 +64,17 @@ public interface SolutionMapper {
      */
     int deleteById(Integer solutionId);
 
+    /**
+     * 获取题解列表
+     * @param solutionQueryVO
+     * @return
+     */
+    List<SolutionDo> findSolutions(SolutionQueryVO solutionQueryVO);
+
+    /**
+     * 获取题解详情
+     * @param solutionId
+     * @return
+     */
+    Solution findSolution(Integer solutionId);
 }

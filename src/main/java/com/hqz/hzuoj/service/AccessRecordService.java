@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.AccessRecord;
+import com.hqz.hzuoj.entity.model.AccessRecord;
 import java.util.List;
 
 /**

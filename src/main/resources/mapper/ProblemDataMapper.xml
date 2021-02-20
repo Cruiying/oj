@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.ProblemDataMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.ProblemData" id="ProblemDataMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.ProblemData" id="ProblemDataMap">
         <result property="problemDataId" column="problem_data_id" jdbcType="INTEGER"/>
         <result property="problemId" column="problem_id" jdbcType="INTEGER"/>
         <result property="inputPath" column="input_path" jdbcType="VARCHAR"/>
@@ -52,6 +52,10 @@
                 and max_runtime_time = #{maxRuntimeTime}
             </if>
         </where>
+    </select>
+<!--    获取题目时间与内存限制-->
+    <select id="findProblemRuntimeTimeAndRuntimeMemory" resultType="com.hqz.hzuoj.entity.DO.ProblemDataDO">
+        select max(max_runtime_memory) as max_runtime_memory, max(max_runtime_time) as max_runtime_time from problem_data where problem_id = #{problemId}
     </select>
 
     <!--新增所有列-->

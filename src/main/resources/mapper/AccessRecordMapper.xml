@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hqz.hzuoj.mapper.AccessRecordMapper">
 
-    <resultMap type="com.hqz.hzuoj.entity.AccessRecord" id="AccessRecordMap">
+    <resultMap type="com.hqz.hzuoj.entity.model.AccessRecord" id="AccessRecordMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="time" column="time" jdbcType="TIMESTAMP"/>
         <result property="ip" column="ip" jdbcType="VARCHAR"/>

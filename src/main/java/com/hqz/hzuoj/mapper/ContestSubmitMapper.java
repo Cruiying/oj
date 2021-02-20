@@ -1,6 +1,6 @@
 package com.hqz.hzuoj.mapper;
 
-import com.hqz.hzuoj.entity.ContestSubmit;
+import com.hqz.hzuoj.entity.model.ContestSubmit;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 

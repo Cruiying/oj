@@ -35,10 +35,11 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-password" for="captcha"></label>
-                    <input value="" type="text" id="captcha" name="captcha" lay-verify="required|captcha" placeholder="验证码" autocomplete="off" class="layui-input" >
+                    <input value="" type="text" name="captcha" lay-verify="required|captcha" placeholder="验证码" autocomplete="off" class="layui-input" >
                 </div>
                 <div class="layui-form-item">
-                    <img src="/captcha.jpg?uuid=111" onclick="this.src=this.src+'?'+Math.random()" id="img"><a href="#" onclick="document.getElementById('img').onclick()">换一张?</a><br/>
+                    <input type="hidden" id="uuid" value="" name="uuid">
+                    <img  onclick="getCaptcha()" id="captcha"><a href="#" onclick="getCaptcha()">换一张?</a><br/>
                 </div>
                 <div class="layui-form-item">
                     <button class="layui-btn layui-btn-fluid" type="submit" lay-submit="" lay-filter="login">登 入
@@ -55,14 +56,28 @@
 </div>
 <script src="../static/lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-<!--<script src="../static/lib/vs/loader.js" th:src="@{/lib/vs/loader.js}"></script>-->
-<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
-<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"
-        charset="utf-8"></script>
+<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}" charset="utf-8"></script>
 <script src="../static/lib/layui/layui.js" th:src="@{/lib/layui-v2.5.4/layui.js}" charset="utf-8"></script>
-<script src="../static/lib/jq-module/jquery.particleground.min.js"
-        th:src="@{/lib/jq-module/jquery.particleground.min.js}" charset="utf-8"></script>
+<script src="../static/lib/jq-module/jquery.particleground.min.js" th:src="@{/lib/jq-module/jquery.particleground.min.js}" charset="utf-8"></script>
 <script type="text/javascript">
+    function generateUUID() {
+        var d = new Date().getTime();
+        if (window.performance && typeof window.performance.now === "function") {
+            d += performance.now(); //use high-precision timer if available
+        }
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
+    }
+    function getCaptcha() {
+        const uuid = generateUUID();
+        $("#captcha").attr("src", "/captcha.jpg?uuid=" + uuid);
+        $("#uuid").val(uuid);
+    }
+    getCaptcha();
     layui.use(['form', 'layer', 'jquery'], function () {
         // 操作对象
         const form = layui.form;
@@ -83,7 +98,7 @@
             }
             $(function () {
                 //请求参数
-                let list = {"username": data.username, "password": data.password};
+                let list = {"username": data.username, "password": data.password, "uuid": data.uuid, "captcha": data.captcha};
                 //
                 $.ajax({
                     //请求格式
@@ -98,14 +113,16 @@
                     data: JSON.stringify(list),
                     //请求成功
                     success: function (result) {
+                        alert(JSON.stringify(result))
                         if (result["code"] === 200) {
                             let url = $("#ReturnUrl").val();
                             if (url == null || url == "") {
-                                url = "/user/index";
+                                url = "/index";
                             }
-                            window.location.href = url + "?userToken=" + result["data"];
+                            window.location.href = url + "?token=" + result["data"];
                             layer.msg("登陆成功");
                         } else {
+
                             layer.msg(result['message']);
                         }
                     },

@@ -1,6 +1,10 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.Submit;
+import com.hqz.hzuoj.common.util.PageUtils;
+import com.hqz.hzuoj.entity.DO.SubmitDO;
+import com.hqz.hzuoj.entity.VO.SubmitQueryVO;
+import com.hqz.hzuoj.entity.model.Submit;
+
 import java.util.List;
 
 /**
@@ -52,4 +56,52 @@ public interface SubmitService {
      */
     boolean deleteById(Integer submitId);
 
+    /**
+     * 获取题目提交通过数量
+     * @param problemId
+     * @return
+     */
+    Integer findProblemAcceptedTotal(Integer problemId);
+
+    /**
+     * 获取提交测评列表
+     * @param submitQueryVO
+     * @return
+     */
+    PageUtils findSubmits(SubmitQueryVO submitQueryVO);
+
+    /**
+     * 根据提交测评Id获取信息
+     * @param submitId
+     * @return
+     */
+    SubmitDO findSubmit(Integer submitId);
+
+    /**
+     * 保存测评记录
+     * @param submit
+     * @return
+     */
+    Integer saveSubmit(Submit submit);
+
+    /**
+     * 获取当前登录用户是否通过该题目
+     * @param problemId
+     * @return
+     */
+    Boolean findProblemAccepted(Integer problemId);
+
+    /**
+     * 获取题目提交数量
+     * @param problemId
+     * @return
+     */
+    Integer findProblemSubmitTotal(Integer problemId);
+
+    /**
+     * 判断当前登录用户是否有提交
+     * @param problemId
+     * @return
+     */
+    Boolean findProblemSubmit(Integer problemId);
 }

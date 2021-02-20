@@ -1,7 +1,9 @@
 package com.hqz.hzuoj.controller;
 
-import com.hqz.hzuoj.entity.JudgeResult;
+import com.hqz.hzuoj.common.R;
+import com.hqz.hzuoj.entity.model.JudgeResult;
 import com.hqz.hzuoj.service.JudgeResultService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -13,7 +15,7 @@ import javax.annotation.Resource;
  * @since 2020-06-22 21:17:30
  */
 @RestController
-@RequestMapping("judgeResult")
+@RequestMapping("judgeResults")
 public class JudgeResultController {
     /**
      * 服务对象
@@ -21,15 +23,11 @@ public class JudgeResultController {
     @Resource
     private JudgeResultService judgeResultService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public JudgeResult selectOne(Integer id) {
-        return this.judgeResultService.queryById(id);
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    @ApiOperation("获取所有测评结果")
+    public R judgeResults() {
+        return R.ok("获取成功", judgeResultService.findJudgeResults());
     }
 
 }

@@ -1,6 +1,8 @@
 package com.hqz.hzuoj.service;
 
-import com.hqz.hzuoj.entity.Solution;
+import com.hqz.hzuoj.common.util.PageUtils;
+import com.hqz.hzuoj.entity.VO.SolutionQueryVO;
+import com.hqz.hzuoj.entity.model.Solution;
 import java.util.List;
 
 /**
@@ -52,4 +54,17 @@ public interface SolutionService {
      */
     boolean deleteById(Integer solutionId);
 
+    /**
+     * 获取
+     * @param solutionQueryVO
+     * @return
+     */
+    PageUtils findSolutions(SolutionQueryVO solutionQueryVO);
+
+    /**
+     * 获取题解详情
+     * @param solutionId
+     * @return
+     */
+    Solution findSolution(Integer solutionId);
 }
